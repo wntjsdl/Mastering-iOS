@@ -22,36 +22,40 @@
 
 import UIKit
 
-class ComposeViewController: UIViewController {
+class ComposeViewController: UIViewController, UITextFieldDelegate {
    
-   @IBOutlet weak var inputField: UITextField!
+    var delegate: ComposeDelegate?
+    
+    @IBOutlet weak var inputField: UITextField! {
+        didSet {
+            inputField.delegate = self
+        }
+    }
    
    @IBAction func performCancel(_ sender: Any) {
-      
+    delegate?.composerDidCancel(self)
+    dismiss(animated: true, completion: nil)
    }
    
    @IBAction func performDone(_ sender: Any) {
-      
+    delegate?.composer(self, didInput: inputField.text)
+    dismiss(animated: true, completion: nil)
    }
-   
+    
+    @IBAction func textFiledShouldReturn(_ textField: UITextField) {
+        inputField.resignFirstResponder()
+    }
+    
    override func viewDidLoad() {
       super.viewDidLoad()
       
       // Do any additional setup after loading the view.
    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        delegate?.composer(self, didInput: inputField.text)
+        dismiss(animated: true, completion: nil)
+        return true
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

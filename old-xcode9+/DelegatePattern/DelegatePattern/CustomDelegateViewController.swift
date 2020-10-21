@@ -25,6 +25,12 @@ import UIKit
 class CustomDelegateViewController: UIViewController {
    
    @IBOutlet weak var valueLabel: UILabel!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination.childViewControllers.first as? ComposeViewController {
+            vc.delegate = self
+        }
+    }
    
    @objc func presentComposeVC() {
       performSegue(withIdentifier: "ComposeSegue", sender: nil)
@@ -35,6 +41,17 @@ class CustomDelegateViewController: UIViewController {
       
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentComposeVC))
    }
+}
+
+extension CustomDelegateViewController: ComposeDelegate {
+    
+    func composer(_ vc: UIViewController, didInput value: String?) {
+        valueLabel.text = value
+    }
+    
+    func composerDidCancel(_ vc: UIViewController) {
+        valueLabel.text = "Calcel"
+    }
 }
 
 
