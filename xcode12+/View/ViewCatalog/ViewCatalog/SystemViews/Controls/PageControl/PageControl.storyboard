@@ -42,19 +42,30 @@
                                     <outlet property="delegate" destination="B4K-0b-dEY" id="5PI-qV-hYR"/>
                                 </connections>
                             </collectionView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" defersCurrentPageDisplay="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="O6r-LO-sgM">
+                                <rect key="frame" x="145.5" y="814" width="123" height="28"/>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="currentPageIndicatorTintColor" systemColor="systemRedColor"/>
+                                <connections>
+                                    <action selector="pageChanged:" destination="B4K-0b-dEY" eventType="valueChanged" id="Zsp-51-R1E"/>
+                                </connections>
+                            </pageControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6jc-mx-sgM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ll0-hh-8PW" firstAttribute="leading" secondItem="6jc-mx-sgM" secondAttribute="leading" id="1Vb-ps-uE0"/>
+                            <constraint firstItem="O6r-LO-sgM" firstAttribute="centerX" secondItem="0np-pU-R5o" secondAttribute="centerX" id="4ns-9c-gU2"/>
                             <constraint firstItem="6jc-mx-sgM" firstAttribute="bottom" secondItem="Ll0-hh-8PW" secondAttribute="bottom" constant="86" id="IUJ-Sf-ItU"/>
                             <constraint firstItem="Ll0-hh-8PW" firstAttribute="top" secondItem="6jc-mx-sgM" secondAttribute="top" id="cRJ-Yl-4nz"/>
+                            <constraint firstItem="6jc-mx-sgM" firstAttribute="bottom" secondItem="O6r-LO-sgM" secondAttribute="bottom" constant="20" id="gFf-ao-w36"/>
                             <constraint firstItem="Ll0-hh-8PW" firstAttribute="trailing" secondItem="6jc-mx-sgM" secondAttribute="trailing" id="yof-1m-pM8"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="listCollectionView" destination="Ll0-hh-8PW" id="oKq-bi-7ol"/>
+                        <outlet property="pager" destination="O6r-LO-sgM" id="Er1-m6-x8W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CuB-x6-XZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -65,6 +76,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

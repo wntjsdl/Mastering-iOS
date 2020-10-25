@@ -81,13 +81,46 @@
                     <view key="view" contentMode="scaleToFill" id="S1S-fA-egX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgl-bi-GcU">
+                                <rect key="frame" x="0.0" y="394" width="414" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="aCI-Aa-afZ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="9HV-xe-fwI" id="TIO-21-vTs"/>
+                                    <outlet property="delegate" destination="9HV-xe-fwI" id="6Hs-xE-gAC"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYf-D3-cEu">
+                                <rect key="frame" x="20" y="802" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="c86-vh-NkG"/>
+                                </constraints>
+                                <state key="normal" title="Report"/>
+                                <connections>
+                                    <action selector="report:" destination="9HV-xe-fwI" eventType="touchUpInside" id="Cfn-br-9yV"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="w7m-my-cQa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vgl-bi-GcU" firstAttribute="trailing" secondItem="w7m-my-cQa" secondAttribute="trailing" id="FO1-4o-ckq"/>
+                            <constraint firstItem="XYf-D3-cEu" firstAttribute="leading" secondItem="w7m-my-cQa" secondAttribute="leading" constant="20" id="LdV-ot-rfd"/>
+                            <constraint firstItem="w7m-my-cQa" firstAttribute="trailing" secondItem="XYf-D3-cEu" secondAttribute="trailing" constant="20" id="M7E-Gy-Zs2"/>
+                            <constraint firstItem="vgl-bi-GcU" firstAttribute="centerY" secondItem="w7m-my-cQa" secondAttribute="centerY" id="UBY-3C-X67"/>
+                            <constraint firstItem="vgl-bi-GcU" firstAttribute="leading" secondItem="w7m-my-cQa" secondAttribute="leading" id="dVt-eh-9x3"/>
+                            <constraint firstItem="w7m-my-cQa" firstAttribute="bottom" secondItem="XYf-D3-cEu" secondAttribute="bottom" constant="30" id="jGT-H8-BGf"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="picker" destination="vgl-bi-GcU" id="3MV-IH-84c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1II-Zl-GcM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1284" y="1187"/>
+            <point key="canvasLocation" x="1282.608695652174" y="1186.6071428571429"/>
         </scene>
         <!--Image Picker-->
         <scene sceneID="3Ph-da-EuK">
@@ -112,6 +145,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="jvZ-Dp-Vav"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="uXF-IV-CTq" id="7a1-iZ-nbN"/>
+                                    <outlet property="delegate" destination="uXF-IV-CTq" id="5eL-do-DNe"/>
+                                </connections>
                             </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CpW-4g-QhE"/>

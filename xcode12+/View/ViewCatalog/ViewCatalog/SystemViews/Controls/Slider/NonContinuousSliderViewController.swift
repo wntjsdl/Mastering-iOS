@@ -43,6 +43,6 @@ class NonContinuousSliderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        slider2.isContinuous = false
     }
 }

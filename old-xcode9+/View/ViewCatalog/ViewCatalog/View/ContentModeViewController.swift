@@ -28,7 +28,10 @@ class ContentModeViewController: UIViewController {
    @IBOutlet weak var modeLabel: UILabel!
    
    @IBAction func switchMode(_ sender: Any) {
-      
+    let currentMode = imageView.contentMode.rawValue
+    let newMode = UIView.ContentMode(rawValue: currentMode + 1) ?? .scaleAspectFill
+    imageView.contentMode = newMode
+    updateModeLabel()
    }
    
    func updateModeLabel() {

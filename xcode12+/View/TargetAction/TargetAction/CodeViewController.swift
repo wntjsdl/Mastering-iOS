@@ -29,9 +29,28 @@ class CodeViewController: UIViewController {
     
     @IBOutlet weak var slider: UISlider!
     
+    func action() {
+        
+    }
+    
+    @objc func action(_ sender: Any) {
+        print("button1")
+    }
+    
+    func action(_ sender: Any, forEvent event: UIEvent) {
+        
+    }
+    
+    @objc func sliderChanged(_ sender: Any) {
+        print("sliderChanged")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let sel = #selector(action(_:))
+        btn.addTarget(self, action: sel, for: .touchUpInside)
+        let sliderSel = #selector(sliderChanged(_:))
+        slider.addTarget(self, action: sliderSel, for: .valueChanged)
     }
 }

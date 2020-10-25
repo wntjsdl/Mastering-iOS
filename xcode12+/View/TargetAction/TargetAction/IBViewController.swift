@@ -26,6 +26,21 @@ import UIKit
 class IBViewController: UIViewController {
     
     
+    @IBAction func test1(_ sender: Any) {
+        print("button1")
+    }
+    
+    @IBAction func test1() {
+        print("button2")
+    }
+    
+    @IBAction func test1(_ sender: Any, forEvent event: UIEvent) {
+        print("button3")
+    }
+    
+    @IBAction func sliderChanged(_ sender: Any) {
+        print("sliderChanged")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

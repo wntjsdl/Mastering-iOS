@@ -29,6 +29,16 @@ class CustomSliderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let img = UIImage(named: "bulb")
         
+        slider.setThumbImage(img, for: .normal)
+        
+        slider.minimumTrackTintColor = UIColor.red
+        slider.maximumTrackTintColor = UIColor.black
+        
+//        slider.thumbTintColor
+        
+//        slider.setMinimumTrackImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
+//        slider.setMaximumTrackImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
     }
 }

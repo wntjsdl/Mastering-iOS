@@ -27,6 +27,26 @@ class TextPickerViewController: UIViewController {
     let devTools = ["Xcode", "Postman", "SourceTree", "Zeplin", "Android Studio", "SublimeText"]
     let fruits = ["Apple", "Orange", "Banana", "Kiwi", "Watermelon", "Peach", "Strawberry"]
     
+    @IBOutlet weak var picker: UIPickerView!
+    
+    @IBAction func report(_ sender: Any) {
+        let row1 = picker.selectedRow(inComponent: 0)
+        let row2 = picker.selectedRow(inComponent: 1)
+
+        guard row1 >= 0 else {
+            print("Not found")
+            return
+        }
+        
+        print(devTools[row1])
+        
+        guard row2 >= 0 else {
+            print("Not found")
+            return
+        }
+        
+        print(fruits[row2])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +54,46 @@ class TextPickerViewController: UIViewController {
 }
 
 
+extension TextPickerViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch component {
+        case 0:
+            return devTools.count
+        case 1:
+            return fruits.count
+        default:
+            return 0
+        }
+    }
+}
 
+extension TextPickerViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return devTools[row]
+        case 1:
+            return fruits[row]
+        default:
+            return nil
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            print(devTools[row])
+        case 1:
+            print(fruits[row])
+        default:
+            print("default")
+        }
+    }
+}
 
 
 

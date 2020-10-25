@@ -108,14 +108,23 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-ty-Kzl">
                                         <rect key="frame" x="16" y="34" width="350" height="150"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PXp-Pa-8vd">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PXp-Pa-8vd">
                                                 <rect key="frame" x="-2" y="0.0" width="354" height="31"/>
+                                                <connections>
+                                                    <action selector="sliderChanged:" destination="Cak-pw-YC3" eventType="valueChanged" id="tCN-Fj-UIE"/>
+                                                </connections>
                                             </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-il-G9E">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-il-G9E">
                                                 <rect key="frame" x="-2" y="60" width="354" height="31"/>
+                                                <connections>
+                                                    <action selector="sliderChanged:" destination="Cak-pw-YC3" eventType="valueChanged" id="xdn-f1-2uR"/>
+                                                </connections>
                                             </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Ff-pU-UWC">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Ff-pU-UWC">
                                                 <rect key="frame" x="-2" y="120" width="354" height="31"/>
+                                                <connections>
+                                                    <action selector="sliderChanged:" destination="Cak-pw-YC3" eventType="valueChanged" id="2p9-C9-UYk"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
@@ -176,7 +185,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rg3-Hr-8S0">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rg3-Hr-8S0">
                                         <rect key="frame" x="-2" y="300" width="378" height="31"/>
                                         <connections>
                                             <action selector="sliderChanged2:" destination="swr-D1-BQc" eventType="valueChanged" id="RBc-mt-7jm"/>
