@@ -75,6 +75,9 @@
                             </stackView>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="joz-lI-fu5">
                                 <rect key="frame" x="160" y="295" width="94" height="32"/>
+                                <connections>
+                                    <action selector="valueChanged:" destination="LsN-cM-NlN" eventType="valueChanged" id="kgp-kz-4CL"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PfZ-Lu-vsh">
                                 <rect key="frame" x="182.5" y="173" width="49" height="95.5"/>

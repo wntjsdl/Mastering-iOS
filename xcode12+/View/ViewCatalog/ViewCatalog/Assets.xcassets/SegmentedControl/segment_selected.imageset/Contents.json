@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "segment_selected@2s.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "segment_selected@2s.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

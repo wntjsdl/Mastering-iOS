@@ -19,6 +19,11 @@
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="87u-Dp-l3c">
                                 <rect key="frame" x="182.5" y="559.5" width="51" height="31"/>
+                                <color key="onTintColor" systemColor="systemYellowColor"/>
+                                <color key="thumbTintColor" systemColor="systemRedColor"/>
+                                <connections>
+                                    <action selector="stateChanged:" destination="3D4-rR-EJa" eventType="valueChanged" id="5m4-Bq-JbF"/>
+                                </connections>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEy-b2-cK0">
                                 <rect key="frame" x="16" y="802" width="382" height="40"/>
@@ -30,8 +35,8 @@
                                     <action selector="toggle:" destination="3D4-rR-EJa" eventType="touchUpInside" id="eww-f9-sE0"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightbulb" catalog="system" highlightedImage="lightbulb.fill" translatesAutoresizingMaskIntoConstraints="NO" id="qmR-by-Iew">
-                                <rect key="frame" x="117" y="328" width="180" height="181.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bulb-off" highlightedImage="bulb-on" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qmR-by-Iew">
+                                <rect key="frame" x="117" y="329.5" width="180" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="13t-xD-1qO"/>
                                     <constraint firstAttribute="width" constant="180" id="CLg-P6-Mib"/>
@@ -62,10 +67,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="lightbulb" catalog="system" width="113" height="128"/>
-        <image name="lightbulb.fill" catalog="system" width="113" height="128"/>
+        <image name="bulb-off" width="256" height="256"/>
+        <image name="bulb-on" width="256" height="256"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

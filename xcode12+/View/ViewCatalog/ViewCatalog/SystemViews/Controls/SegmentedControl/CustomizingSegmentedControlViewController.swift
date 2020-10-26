@@ -30,11 +30,27 @@ class CustomizingSegmentedControlViewController: UIViewController {
     @IBOutlet weak var titleField: UITextField!
     
     @IBAction func insertSegment(_ sender: Any) {
+        guard let title = titleField.text, title.count > 0 else {
+            return
+        }
         
+        segmentedControl.insertSegment(withTitle: title, at: segmentedControl.numberOfSegments, animated: true)
+        titleField.text = nil
     }
     
     @IBAction func removeSegment(_ sender: Any) {
+        guard let title = titleField.text, title.count > 0 else {
+            return
+        }
         
+        for index in 0..<segmentedControl.numberOfSegments {
+            if let currentTitle = segmentedControl.titleForSegment(at: index), currentTitle == title {
+                segmentedControl.removeSegment(at: index, animated: true)
+                break
+            }
+        }
+        
+        titleField.text = nil
     }
     
     override func viewDidLoad() {
@@ -46,9 +62,7 @@ class CustomizingSegmentedControlViewController: UIViewController {
         segmentedControl.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
         segmentedControl.setBackgroundImage(selectedImage, for: .selected, barMetrics: .default)
         
-        
         var img = UIImage(named: "segment_normal_normal")
-        print(img?.size)
         segmentedControl.setDividerImage(img, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
         let halfWidth = (img!.size.width - 20) / 3.0

@@ -16,14 +16,37 @@
                     <view key="view" contentMode="scaleToFill" id="IjD-le-vU3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NA6-jy-AY3">
+                                <rect key="frame" x="16" y="446" width="382" height="4"/>
+                            </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xzc-7o-D0F">
+                                <rect key="frame" x="20" y="852" width="374" height="30"/>
+                                <state key="normal" title="Update"/>
+                                <connections>
+                                    <action selector="update:" destination="7G7-iH-P8B" eventType="touchUpInside" id="0aU-jC-Ap1"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="dH5-sA-pge"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dH5-sA-pge" firstAttribute="trailing" secondItem="xzc-7o-D0F" secondAttribute="trailing" constant="20" id="9X4-fe-55W"/>
+                            <constraint firstItem="NA6-jy-AY3" firstAttribute="leading" secondItem="dH5-sA-pge" secondAttribute="leading" constant="16" id="9hC-3x-yjE"/>
+                            <constraint firstItem="NA6-jy-AY3" firstAttribute="centerY" secondItem="IjD-le-vU3" secondAttribute="centerY" id="TBD-QZ-8l1"/>
+                            <constraint firstItem="dH5-sA-pge" firstAttribute="trailing" secondItem="NA6-jy-AY3" secondAttribute="trailing" constant="16" id="YQj-4C-dPw"/>
+                            <constraint firstItem="xzc-7o-D0F" firstAttribute="leading" secondItem="dH5-sA-pge" secondAttribute="leading" constant="20" id="eNZ-Uc-Ju1"/>
+                            <constraint firstItem="xzc-7o-D0F" firstAttribute="bottom" secondItem="dH5-sA-pge" secondAttribute="bottom" constant="20" id="kOs-a3-eqc"/>
+                        </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="progress" destination="NA6-jy-AY3" id="FE3-lp-qzJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ir5-Gs-OvD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2786" y="941"/>
+            <point key="canvasLocation" x="2785.507246376812" y="940.84821428571422"/>
         </scene>
     </scenes>
     <resources>
