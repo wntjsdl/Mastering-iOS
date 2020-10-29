@@ -24,10 +24,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-   
+    @IBOutlet weak var nameLabel: UILabel!
+    
    @IBOutlet weak var emailButton: UIButton!
    
    @IBOutlet weak var profileImageView: UIImageView!
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        if newCollection.verticalSizeClass == .compact {
+            nameLabel.textAlignment = .left
+        } else {
+            nameLabel.textAlignment = .center
+        }
+    }
    
    override func viewDidLoad() {
       super.viewDidLoad()

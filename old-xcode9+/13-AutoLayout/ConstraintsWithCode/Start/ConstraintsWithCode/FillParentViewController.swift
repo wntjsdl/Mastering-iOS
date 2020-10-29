@@ -31,9 +31,9 @@ class FillParentViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      layoutWithInitializer()
-      //layoutWithVisualFormatLanguage()
-      //layoutWithAnchor()
+//      layoutWithInitializer()
+//      layoutWithVisualFormatLanguage()
+      layoutWithAnchor()
    }
 }
 
@@ -47,7 +47,17 @@ class FillParentViewController: UIViewController {
 
 extension FillParentViewController {
    func layoutWithInitializer() {
-      
+    blueView.translatesAutoresizingMaskIntoConstraints = false
+    
+    let leading = NSLayoutConstraint(item: blueView, attribute: .leading, relatedBy: .equal, toItem: bottomContainer, attribute: .leading, multiplier: 1.0, constant: 0.0)
+    
+    let top = NSLayoutConstraint(item: blueView, attribute: .top, relatedBy: .equal, toItem: bottomContainer, attribute: .top, multiplier: 1.0, constant: 0.0)
+    
+    let trailing = NSLayoutConstraint(item: blueView, attribute: .trailing, relatedBy: .equal, toItem: bottomContainer, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+    
+    let bottom = NSLayoutConstraint(item: blueView, attribute: .bottom, relatedBy: .equal, toItem: bottomContainer, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+    
+    NSLayoutConstraint.activate([leading, top, trailing, bottom])
    }
 }
 
@@ -87,7 +97,17 @@ extension FillParentViewController {
 
 extension FillParentViewController {
    func layoutWithVisualFormatLanguage() {
-      
+    blueView.translatesAutoresizingMaskIntoConstraints = false
+    
+    let horzFmt = "|[b]|"
+    let vertFmt = "V:|[b]|"
+    
+    let views: [String: Any] = ["b": blueView]
+    
+    let horzConstraint = NSLayoutConstraint.constraints(withVisualFormat: horzFmt, options: [], metrics: nil, views: views)
+    let vertConstraint = NSLayoutConstraint.constraints(withVisualFormat: vertFmt, options: [], metrics: nil, views: views)
+    
+    NSLayoutConstraint.activate(horzConstraint + vertConstraint)
    }
 }
 
@@ -128,7 +148,12 @@ extension FillParentViewController {
 
 extension FillParentViewController {
    func layoutWithAnchor() {
-      
+    blueView.translatesAutoresizingMaskIntoConstraints = false
+    
+    blueView.leadingAnchor.constraint(equalTo: bottomContainer.leadingAnchor).isActive = true
+    blueView.topAnchor.constraint(equalTo: bottomContainer.topAnchor).isActive = true
+    blueView.trailingAnchor.constraint(equalTo: bottomContainer.trailingAnchor).isActive = true
+    blueView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor).isActive = true
    }
 }
 
