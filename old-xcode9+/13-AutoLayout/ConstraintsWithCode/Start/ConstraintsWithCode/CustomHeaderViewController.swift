@@ -25,19 +25,27 @@ import UIKit
 class CustomHeaderViewController: UIViewController {
    
    @IBOutlet weak var blueView: UIView!
-   
+    
+    var topToSuperView: NSLayoutConstraint?
+    var topToSafeArea: NSLayoutConstraint?
    
    @IBAction func updateTopConstraint(_ sender: UISwitch) {
-      
+    if sender.isOn {
+        topToSuperView?.isActive = false
+        topToSafeArea?.isActive = true
+    } else {
+        topToSafeArea?.isActive = false
+        topToSuperView?.isActive = true
+    }
    }
    
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      layoutWithInitializer()
-      //layoutWithVisualFormatLanguage()
-      //layoutWithAnchor()
+//      layoutWithInitializer()
+//      layoutWithVisualFormatLanguage()
+      layoutWithAnchor()
    }
 }
 
@@ -51,7 +59,21 @@ class CustomHeaderViewController: UIViewController {
 
 extension CustomHeaderViewController {
    func layoutWithInitializer() {
-     
+    blueView.translatesAutoresizingMaskIntoConstraints = false
+    
+    let leading = NSLayoutConstraint(item: blueView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0.0)
+    let top = NSLayoutConstraint(item: blueView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0.0)
+    let trailing = NSLayoutConstraint(item: blueView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+    let height = NSLayoutConstraint(item: blueView, attribute: .height, relatedBy: .equal, toItem: nil , attribute: .height, multiplier: 1.0, constant: 100.0)
+    
+    NSLayoutConstraint.activate([leading, top, trailing, height])
+    
+    topToSuperView = top
+    if #available(iOS 11.0, *) {
+        topToSafeArea = NSLayoutConstraint(item: blueView, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0.0)
+    } else {
+        topToSafeArea = NSLayoutConstraint(item: blueView, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+    }
    }
 }
 
@@ -85,7 +107,17 @@ extension CustomHeaderViewController {
 
 extension CustomHeaderViewController {
    func layoutWithVisualFormatLanguage() {
-     
+    blueView.translatesAutoresizingMaskIntoConstraints = false
+    
+    let horzFmt = "|[blue]|"
+    let vertFmt = "V:|[blue(100)]"
+    
+    let views: [String: Any] = ["blue": blueView]
+    
+    let horzConstraints = NSLayoutConstraint.constraints(withVisualFormat: horzFmt, options: [], metrics: nil, views: views)
+    let vertConstraints = NSLayoutConstraint.constraints(withVisualFormat: vertFmt, options: [], metrics: nil, views: views)
+    
+    NSLayoutConstraint.activate(horzConstraints + vertConstraints)
    }
 }
 
@@ -119,7 +151,21 @@ extension CustomHeaderViewController {
 
 extension CustomHeaderViewController {
    func layoutWithAnchor() {
+    blueView.translatesAutoresizingMaskIntoConstraints = false
     
+    blueView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    blueView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//    blueView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+    blueView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    
+    topToSuperView = blueView.topAnchor.constraint(equalTo: view.topAnchor)
+    topToSuperView?.isActive = true
+    
+    if #available(iOS 11.0, *) {
+        topToSafeArea = blueView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+    } else {
+        topToSafeArea = blueView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor)
+    }
    }
 }
 
