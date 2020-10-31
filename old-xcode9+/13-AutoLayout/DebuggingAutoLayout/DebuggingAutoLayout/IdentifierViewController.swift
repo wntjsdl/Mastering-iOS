@@ -30,7 +30,8 @@ class IdentifierViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      let leading = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+      let leading = redView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+    leading.identifier = "codeLeading"
       leading.isActive = true
    }
 }

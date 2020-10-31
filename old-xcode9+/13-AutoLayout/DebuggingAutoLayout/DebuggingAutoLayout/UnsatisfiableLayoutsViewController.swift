@@ -28,6 +28,7 @@ class UnsatisfiableLayoutsViewController: UIViewController {
       super.viewDidLoad()
       
       let v = UIView(frame: CGRect(x: 50, y: 250, width: 100, height: 100))
+    v.translatesAutoresizingMaskIntoConstraints = false
       v.backgroundColor = UIColor.gray
       
       view.addSubview(v)
