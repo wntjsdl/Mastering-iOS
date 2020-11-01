@@ -31,7 +31,11 @@ class StackViewSpacingViewController: UIViewController {
     @IBOutlet weak var spacingSlider: UISlider!
     
     @IBAction func spacingChanged(_ sender: UISlider) {
+        UIView.animate(withDuration: 0.3) {
+            self.horizontalStackView.spacing = CGFloat(sender.value)
+        }
         
+        updateLabel()
     }
     
     private func updateLabel() {
@@ -43,5 +47,7 @@ class StackViewSpacingViewController: UIViewController {
         
         updateLabel()
         spacingSlider.value = Float(horizontalStackView.spacing)
+        
+        horizontalStackView.setCustomSpacing(60, after: redView)
     }
 }

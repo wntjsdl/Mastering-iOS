@@ -28,15 +28,39 @@ class StackViewArrangedSubviewsViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     
     @IBAction func add(_ sender: Any) {
+        let v = generateView()
+        stackView.addArrangedSubview(v)
         
+        UIView.animate(withDuration: 0.3) {
+            self.stackView.layoutIfNeeded()
+        }
     }
     
     @IBAction func insert(_ sender: Any) {
+        let v = generateView()
+        stackView.insertArrangedSubview(v, at: 0)
         
+        UIView.animate(withDuration: 0.3) {
+            self.stackView.layoutIfNeeded()
+        }
     }
     
     @IBAction func remove(_ sender: Any) {
+        guard stackView.arrangedSubviews.count > 0 else {
+            return
+        }
         
+        let index = Int(arc4random_uniform(UInt32(stackView.arrangedSubviews.count)))
+        let v = stackView.arrangedSubviews[index]
+//        stackView.removeArrangedSubview(v)
+//
+//        UIView.animate(withDuration: 0.3) {
+//            self.stackView.layoutIfNeeded()
+//        }
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            v.isHidden = true
+        }, completion: { finished in self.stackView.removeArrangedSubview(v)})
     }
     
     
@@ -44,7 +68,9 @@ class StackViewArrangedSubviewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        let v = generateView()
+        v.frame = stackView.bounds
+        stackView.addSubview(v)
     }
 }
 

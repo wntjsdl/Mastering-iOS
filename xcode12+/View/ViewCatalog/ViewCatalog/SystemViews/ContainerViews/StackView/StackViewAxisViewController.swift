@@ -29,7 +29,13 @@ class StackViewAxisViewController: UIViewController {
     
     
     @IBAction func toggleAxis(_ sender: Any) {
-        
+        UIView.animate(withDuration: 0.3) {
+            if self.stackView.axis == .horizontal {
+                self.stackView.axis = .vertical
+            } else {
+                self.stackView.axis = .horizontal
+            }
+        }
     }
     
     
