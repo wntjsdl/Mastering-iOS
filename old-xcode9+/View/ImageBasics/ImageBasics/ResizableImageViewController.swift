@@ -31,7 +31,7 @@ class ResizableImageViewController: UIViewController {
       super.viewDidLoad()
       
       let capInset = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
-      let img = #imageLiteral(resourceName: "btn").resizableImage(withCapInsets: capInset)
+    let img = #imageLiteral(resourceName: "btn").resizableImage(withCapInsets: capInset, resizingMode: .stretch)
       
       btn.setBackgroundImage(img, for: .normal)
    }

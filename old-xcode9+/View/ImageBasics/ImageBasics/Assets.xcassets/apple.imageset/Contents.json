@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "apple.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "news@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

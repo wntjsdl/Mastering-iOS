@@ -28,7 +28,7 @@ class ActionSheetViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     
     @IBAction func show(_ sender: UIButton) {
-        let controller = UIAlertController(title: "Languages", message: "Choose one", preferredStyle: .alert)
+        let controller = UIAlertController(title: "Languages", message: "Choose one", preferredStyle: .actionSheet)
         
         let swiftAction = UIAlertAction(title: "Swift", style: .default) { [weak self] (action) in
             self?.resultLabel.text = action.title
@@ -57,6 +57,18 @@ class ActionSheetViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
+        
+        if let pc = controller.popoverPresentationController {
+            pc.sourceRect = sender.frame
+            pc.sourceView = view
+        }
+        
+        for action in controller.actions {
+            if action.title == resultLabel.text {
+                action.isEnabled = false
+                break
+            }
+        }
         
         present(controller, animated: true, completion: nil)
     }

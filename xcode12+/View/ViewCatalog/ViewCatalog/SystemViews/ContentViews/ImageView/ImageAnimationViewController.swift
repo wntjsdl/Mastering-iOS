@@ -28,16 +28,21 @@ class ImageAnimationViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     @IBAction func startAnimation(_ sender: Any) {
-        
+        imageView.startAnimating()
     }
     
     @IBAction func stopAnimation(_ sender: Any) {
-        
+        if imageView.isAnimating {
+            imageView.stopAnimating()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        let images = (0...3).compactMap { UIImage(named: "phone-ring\($0)") }
+        imageView.animationImages = images
+        imageView.animationDuration = 1
+        imageView.animationRepeatCount = 5
     }
 }

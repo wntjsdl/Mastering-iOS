@@ -26,7 +26,24 @@ import UIKit
 class AlertViewController: UIViewController {
     
     @IBAction func show(_ sender: Any) {
+        let controller = UIAlertController(title: "Hello", message: "Have a nice day :)", preferredStyle: .alert)
         
+        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            print(action.title)
+        }
+        controller.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "Calcel", style: .cancel) { (action) in
+            print(action.title)
+        }
+        controller.addAction(cancelAction)
+        
+        let destructiveAction = UIAlertAction(title: "Destructive", style: .destructive) { (action) in
+            print(action.title)
+        }
+        controller.addAction(destructiveAction)
+        
+        present(controller, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
