@@ -21,6 +21,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 
 class ImageResizingViewController: UIViewController {
@@ -30,7 +31,10 @@ class ImageResizingViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    let targetImage = #imageLiteral(resourceName: "photo")
+    let size = CGSize(width: targetImage.size.width / 5, height: targetImage.size.height / 5)
+    
+    imageView.image = resizingWithBitmapContext(image: targetImage, to: size)
    }
 }
 
@@ -39,7 +43,16 @@ class ImageResizingViewController: UIViewController {
 
 extension ImageResizingViewController {
    func resizingWithImageContext(image: UIImage, to size: CGSize) -> UIImage? {
-      return nil
+    UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+    
+    let frame = CGRect(origin: CGPoint.zero, size: size)
+    image.draw(in: frame)
+    
+    let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+    
+    UIGraphicsEndImageContext()
+    
+    return resultImage
    }
 }
 
@@ -47,7 +60,30 @@ extension ImageResizingViewController {
 
 extension ImageResizingViewController {
    func resizingWithBitmapContext(image: UIImage, to size: CGSize) -> UIImage? {
-      return nil
+    guard let cgImage = image.cgImage else {
+        return nil
+    }
+    
+    let bpc = cgImage.bitsPerComponent
+    let bpr = cgImage.bytesPerRow
+    let colorSpace = cgImage.colorSpace!
+    let bitmapInfo = cgImage.bitmapInfo
+    
+    guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: bpc, bytesPerRow: bpr, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {
+        return nil
+    }
+    
+    context.interpolationQuality = .high
+    
+    let frame = CGRect(origin: CGPoint.zero, size: size)
+    
+    context.draw(cgImage, in: frame)
+    
+    guard let resultImage = context.makeImage() else {
+        return nil
+    }
+    
+    return UIImage(cgImage: resultImage)
    }
 }
 

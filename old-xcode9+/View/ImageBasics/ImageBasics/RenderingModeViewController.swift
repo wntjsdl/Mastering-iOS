@@ -27,7 +27,8 @@ class RenderingModeViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      
+    
+    let img = #imageLiteral(resourceName: "clover").withRenderingMode(.alwaysTemplate)
+    imageView.image = img
    }
 }

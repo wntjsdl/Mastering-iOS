@@ -27,7 +27,10 @@ class PatternImageViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    if let img = UIImage(named: "pattern") {
+        let patternColor = UIColor(patternImage: img)
+        view.backgroundColor = patternColor
+    }
    }
 }
 

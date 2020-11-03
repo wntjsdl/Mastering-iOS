@@ -28,12 +28,12 @@ class CustomView: UIView {
       
       var frame = CGRect(x: 10, y: 10, width: 100, height: 100)
       context?.addRect(frame)
-      
+    UIColor.red.setStroke()
       context?.strokePath()
       
       frame = CGRect(x: 10, y: 200, width: 100, height: 100)
       context?.addRect(frame)
-      
+    UIColor.blue.setFill()
       context?.fillPath()
    }
 }

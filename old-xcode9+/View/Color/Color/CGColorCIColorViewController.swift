@@ -29,7 +29,8 @@ class CGColorCIColorViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      blueView.layer.borderWidth = 10      
+      blueView.layer.borderWidth = 10
+    blueView.layer.borderColor = UIColor.yellow.cgColor
    }
 }
 
