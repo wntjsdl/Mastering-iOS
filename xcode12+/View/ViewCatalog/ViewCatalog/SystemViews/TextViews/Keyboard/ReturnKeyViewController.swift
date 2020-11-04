@@ -39,14 +39,24 @@ class ReturnKeyViewController: UIViewController {
 
 extension ReturnKeyViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let keyword = secondInputField.text else { return true }
         
-        guard let url = URL(string: "http://www.google.com/m/search?q=\(keyword)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else {
-            return true
-        }
-        
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        switch textField {
+        case firstInputField:
+            secondInputField.becomeFirstResponder()
+        case secondInputField:
+            guard let keyword = secondInputField.text else {
+                return true
+            }
+            
+            guard let url = URL(string: "http://www.google.com/m/search?q=\(keyword)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else {
+                return true
+            }
+            
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        default:
+            break
         }
         
         return true

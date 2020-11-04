@@ -31,7 +31,9 @@ class ImageAttachmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attachment = NSTextAttachment()
+        attachment.image = logo
         
-        
+        textView.textStorage.insert(NSAttributedString(attachment: attachment), at: 0)
     }
 }

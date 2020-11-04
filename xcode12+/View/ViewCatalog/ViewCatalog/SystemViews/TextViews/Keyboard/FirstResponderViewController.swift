@@ -29,10 +29,28 @@ class FirstResponderViewController: UIViewController {
     
     
     @IBAction func startEditing(_ sender: Any) {
-        
+        inputField.becomeFirstResponder()
     }
     
     @IBAction func endEditing(_ sender: Any) {
+        if inputField.isFirstResponder {
+            inputField.resignFirstResponder()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        inputField.becomeFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        if inputField.isFirstResponder {
+//            inputField.resignFirstResponder()
+//        }
+        
+        view.endEditing(true)
     }
 }

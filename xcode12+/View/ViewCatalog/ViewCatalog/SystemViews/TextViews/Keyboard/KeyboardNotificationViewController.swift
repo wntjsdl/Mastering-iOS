@@ -37,6 +37,23 @@ class KeyboardNotificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { (noti) in
+            
+            guard let userInfo = noti.userInfo else { return }
+            
+            guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+            
+            var inset = self.textView.textContainerInset
+            inset.bottom = bounds.height
+            self.textView.textContainerInset = inset
+            self.textView.scrollIndicatorInsets = inset
+        }
         
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { (noti) in
+            var inset = self.textView.textContainerInset
+            inset.bottom = 8
+            self.textView.textContainerInset = inset
+            self.textView.scrollIndicatorInsets = inset
+        }
     }
 }

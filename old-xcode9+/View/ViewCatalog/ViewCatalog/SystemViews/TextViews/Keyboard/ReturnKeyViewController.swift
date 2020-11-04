@@ -32,6 +32,7 @@ class ReturnKeyViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
+    secondInputField
       
    }
 }

@@ -28,7 +28,11 @@ class KeyboardAppearanceViewController: UIViewController {
     @IBOutlet weak var inputField: UITextField!
     
     @IBAction func appearanceChanged(_ sender: UISegmentedControl) {
+        inputField.resignFirstResponder()
         
+        inputField.keyboardAppearance = UIKeyboardAppearance(rawValue: sender.selectedSegmentIndex) ?? .default
+        
+        inputField.becomeFirstResponder()
     }
     
     

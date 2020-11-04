@@ -23,6 +23,11 @@
 
 import UIKit
 
+class GenderInputView: UIView, UIInputViewAudioFeedback {
+    var enableInputClicksWhenVisible: Bool {
+        return true
+    }
+}
 
 class InputViewViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
@@ -31,16 +36,65 @@ class InputViewViewController: UIViewController {
     
     @IBOutlet weak var genderField: UITextField!
     
+    @IBOutlet var pickerContainerView: UIView!
+    
+    @IBOutlet var buttonContainerView: UIView!
+    
+    @IBOutlet var accessoryBar: UIToolbar!
+    
+    @IBAction func selectPrev(_ sender: UIBarButtonItem) {
+        if ageField.isEditing {
+            nameField.becomeFirstResponder()
+        } else if genderField.isEditing {
+            ageField.becomeFirstResponder()
+        }
+    }
+    
+    @IBAction func selectNext(_ sender: UIBarButtonItem) {
+        if nameField.isEditing {
+            ageField.becomeFirstResponder()
+        } else if ageField.isEditing {
+            genderField.becomeFirstResponder()
+        } else if genderField.isEditing {
+            genderField.resignFirstResponder()
+        }
+    }
+    
+    
+    @IBAction func selectGender(_ sender: UIButton) {
+        genderField.text = sender.tag == 0 ? "M" : "F"
+        
+        UIDevice.current.playInputClick()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ageField.inputView = pickerContainerView
+        genderField.inputView = buttonContainerView
         
+        nameField.inputAccessoryView = accessoryBar
+        ageField.inputAccessoryView = accessoryBar
+        genderField.inputAccessoryView = accessoryBar
     }
 }
 
 
-
+//extension InputViewViewController: UITextFieldDelegate {
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        switch textField {
+//        case nameField:
+//            ageField.becomeFirstResponder()
+//        case ageField:
+//            genderField.becomeFirstResponder()
+//        case genderField:
+//            genderField.resignFirstResponder()
+//        default:
+//            break
+//        }
+//        return true
+//    }
+//}
 
 
 
@@ -60,7 +114,7 @@ extension InputViewViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        ageField.text = "\(row + 1)"
     }
 }
 

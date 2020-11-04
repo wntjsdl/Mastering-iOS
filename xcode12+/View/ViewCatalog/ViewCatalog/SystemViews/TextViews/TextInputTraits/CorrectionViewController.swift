@@ -27,6 +27,11 @@ class CorrectionViewController: UIViewController {
     @IBOutlet weak var inputField: UITextField!
     
     @IBAction func correctionChanged(_ sender: UISegmentedControl) {
+        inputField.resignFirstResponder()
+        
+        inputField.autocorrectionType = UITextAutocorrectionType(rawValue: sender.selectedSegmentIndex) ?? .default
+        
+        inputField.becomeFirstResponder()
         
     }
     

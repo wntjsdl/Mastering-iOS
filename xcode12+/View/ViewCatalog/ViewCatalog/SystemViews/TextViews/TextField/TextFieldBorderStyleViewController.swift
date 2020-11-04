@@ -32,11 +32,11 @@ class TextFieldBorderStyleViewController: UIViewController {
     let style = UITextField.BorderStyle(rawValue: index) ?? .roundedRect
       inputField.borderStyle = style
       
-      if style == .roundedRect {
-         print("reset")
-         inputField.background = nil
-         inputField.disabledBackground = nil
-      }
+//      if style == .roundedRect {
+//         print("reset")
+//         inputField.background = nil
+//         inputField.disabledBackground = nil
+//      }
    }
    
    
@@ -52,6 +52,6 @@ class TextFieldBorderStyleViewController: UIViewController {
       
       borderStyleControl.selectedSegmentIndex = inputField.borderStyle.rawValue
       
-      print(inputField.background)
+//      print(inputField.background)
    }
 }
