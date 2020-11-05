@@ -12,7 +12,10 @@ formatter.timeStyle = .full
 
 print(formatter.string(from: now))
 
+formatter.amSymbol = am
+formatter.pmSymbol = pm
 
+formatter.weekdaySymbols = weekdaySymbols
 
 print(formatter.string(from: now))
 

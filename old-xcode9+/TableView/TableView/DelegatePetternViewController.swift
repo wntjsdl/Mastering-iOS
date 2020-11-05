@@ -33,7 +33,24 @@ class DelegatePetternViewController: UIViewController {
 }
 
 
-
+extension DelegatePetternViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("#1", #function)
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("#2", #function, indexPath.row)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = "\(indexPath.section) - \(indexPath.row)"
+        
+        return cell
+    }
+    
+    
+}
 
 
 

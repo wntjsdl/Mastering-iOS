@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63395D632553F9C300E5F333 /* AutoFill.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoFill.entitlements; sourceTree = "<group>"; };
 		AA46F25C20E9419F00CCA670 /* AutoFill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoFill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA46F25F20E9419F00CCA670 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA46F26120E9419F00CCA670 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +57,7 @@
 		AA46F25E20E9419F00CCA670 /* AutoFill */ = {
 			isa = PBXGroup;
 			children = (
+				63395D632553F9C300E5F333 /* AutoFill.entitlements */,
 				AA46F25F20E9419F00CCA670 /* AppDelegate.swift */,
 				AA46F26120E9419F00CCA670 /* ViewController.swift */,
 				AA46F26320E9419F00CCA670 /* Main.storyboard */,
@@ -284,9 +286,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AutoFill/AutoFill.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6GG6YUX8VB;
+				DEVELOPMENT_TEAM = 4F28X63GKN;
 				INFOPLIST_FILE = AutoFill/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -305,9 +308,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AutoFill/AutoFill.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6GG6YUX8VB;
+				DEVELOPMENT_TEAM = 4F28X63GKN;
 				INFOPLIST_FILE = AutoFill/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

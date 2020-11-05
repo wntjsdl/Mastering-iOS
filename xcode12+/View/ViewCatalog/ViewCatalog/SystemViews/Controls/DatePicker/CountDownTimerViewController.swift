@@ -22,21 +22,48 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class CountDownTimerViewController: UIViewController {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    
     @IBOutlet weak var picker: UIDatePicker!
     
-    @IBAction func start(_ sender: Any) {
-        
+    var remainingSeconds = 0
+    
+    var tempTimer: Timer?
+    
+    @IBAction func start(_ sender: UIButton) {
+        switch sender.currentTitle {
+        case "Start":
+            sender.setTitle("Stop", for:.normal)
+            timeLabel.text = "\(Int(picker.countDownDuration))"
+            remainingSeconds = Int(picker.countDownDuration)
+            
+            tempTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+                self.remainingSeconds -= 1
+                self.timeLabel.text = "\(self.remainingSeconds)"
+                
+                if self.remainingSeconds == 0 {
+                    timer.invalidate()
+                    AudioServicesPlaySystemSound(1315)
+                }
+            }
+        case "Stop":
+            sender.setTitle("Start", for:.normal)
+            self.remainingSeconds = 0
+            self.timeLabel.text = "\(self.remainingSeconds)"
+            tempTimer?.invalidate()
+            tempTimer = nil
+        default:
+            break
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        picker.countDownDuration = 60
     }
 }
