@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63ABEBC52555778800B05E99 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABEBC42555778800B05E99 /* SwitchTableViewCell.swift */; };
 		AA0880E420EEA136004BCAEA /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0880E320EEA136004BCAEA /* Products.swift */; };
 		AA0880E620EEA301004BCAEA /* SingleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0880E520EEA301004BCAEA /* SingleSelectionViewController.swift */; };
 		AA0880E820EEDEE5004BCAEA /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0880E720EEDEE5004BCAEA /* MultipleSelectionViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63ABEBC42555778800B05E99 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		AA0880E320EEA136004BCAEA /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		AA0880E520EEA301004BCAEA /* SingleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionViewController.swift; sourceTree = "<group>"; };
 		AA0880E720EEDEE5004BCAEA /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				AACF69FB20DA448300DE209C /* AppDelegate.swift */,
 				AAA71FE320DF46CF00C5E2AB /* DelegatePetternViewController.swift */,
 				AA84F76120E21D67004DF711 /* MultiSectionTableViewViewController.swift */,
+				63ABEBC42555778800B05E99 /* SwitchTableViewCell.swift */,
 				AA871A4420E331EA004E2E8B /* SeparatorViewController.swift */,
 				AA7CDBA020ED1784004EFB9C /* TableViewCellViewController.swift */,
 				AA7CDBA220ED2DBC004EFB9C /* DetailViewController.swift */,
@@ -221,6 +224,7 @@
 				AAE2BD3220EFF3FC00FD64F1 /* HeaderFooterViewViewController.swift in Sources */,
 				AA5016F220EC098D00F82883 /* CustomCellViewController.swift in Sources */,
 				AA871A4520E331EA004E2E8B /* SeparatorViewController.swift in Sources */,
+				63ABEBC52555778800B05E99 /* SwitchTableViewCell.swift in Sources */,
 				AA7CDBAB20ED8DB3004EFB9C /* HeaderAndFooterViewController.swift in Sources */,
 				AA84F76520E22A96004DF711 /* PhotosSetting.swift in Sources */,
 				AA0880EA20EEF5B4004BCAEA /* EditModeViewController.swift in Sources */,
