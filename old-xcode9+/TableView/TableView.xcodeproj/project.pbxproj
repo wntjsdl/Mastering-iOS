@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6325004225593C7800F76545 /* CustomAccessoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6325004125593C7800F76545 /* CustomAccessoryTableViewCell.swift */; };
+		632500452559417E00F76545 /* CustomCellPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632500442559417E00F76545 /* CustomCellPopUpViewController.swift */; };
+		632500482559991200F76545 /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632500472559991200F76545 /* TimeTableViewCell.swift */; };
+		6325004B25599C4500F76545 /* SharedCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6325004A25599C4500F76545 /* SharedCustomCell.xib */; };
+		6325004E2559A4C500F76545 /* CustomHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6325004D2559A4C500F76545 /* CustomHeader.xib */; };
+		632500512559A62B00F76545 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632500502559A62B00F76545 /* CustomHeaderView.swift */; };
 		63ABEBC52555778800B05E99 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABEBC42555778800B05E99 /* SwitchTableViewCell.swift */; };
 		AA0880E420EEA136004BCAEA /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0880E320EEA136004BCAEA /* Products.swift */; };
 		AA0880E620EEA301004BCAEA /* SingleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0880E520EEA301004BCAEA /* SingleSelectionViewController.swift */; };
@@ -38,6 +44,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6325004125593C7800F76545 /* CustomAccessoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAccessoryTableViewCell.swift; sourceTree = "<group>"; };
+		632500442559417E00F76545 /* CustomCellPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellPopUpViewController.swift; sourceTree = "<group>"; };
+		632500472559991200F76545 /* TimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
+		6325004A25599C4500F76545 /* SharedCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharedCustomCell.xib; sourceTree = "<group>"; };
+		6325004D2559A4C500F76545 /* CustomHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeader.xib; sourceTree = "<group>"; };
+		632500502559A62B00F76545 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		63ABEBC42555778800B05E99 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		AA0880E320EEA136004BCAEA /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		AA0880E520EEA301004BCAEA /* SingleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionViewController.swift; sourceTree = "<group>"; };
@@ -121,9 +133,15 @@
 				AA7CDBA020ED1784004EFB9C /* TableViewCellViewController.swift */,
 				AA7CDBA220ED2DBC004EFB9C /* DetailViewController.swift */,
 				AA871A4820E372B8004E2E8B /* AccessoryViewViewController.swift */,
+				6325004125593C7800F76545 /* CustomAccessoryTableViewCell.swift */,
 				AA5016F720EC3D6E00F82883 /* SelfSizingCellViewController.swift */,
 				AA5016F120EC098D00F82883 /* CustomCellViewController.swift */,
+				632500472559991200F76545 /* TimeTableViewCell.swift */,
+				6325004A25599C4500F76545 /* SharedCustomCell.xib */,
+				632500442559417E00F76545 /* CustomCellPopUpViewController.swift */,
 				AA7CDBAA20ED8DB3004EFB9C /* HeaderAndFooterViewController.swift */,
+				6325004D2559A4C500F76545 /* CustomHeader.xib */,
+				632500502559A62B00F76545 /* CustomHeaderView.swift */,
 				AA62FF7020EE5A9200C27EF0 /* SectionIndexViewController.swift */,
 				AAE2BD3120EFF3FC00FD64F1 /* HeaderFooterViewViewController.swift */,
 				AA0880E520EEA301004BCAEA /* SingleSelectionViewController.swift */,
@@ -201,7 +219,9 @@
 			files = (
 				AACF6A0620DA448400DE209C /* LaunchScreen.storyboard in Resources */,
 				AACF6A0320DA448400DE209C /* Assets.xcassets in Resources */,
+				6325004E2559A4C500F76545 /* CustomHeader.xib in Resources */,
 				AACF6A0120DA448300DE209C /* Main.storyboard in Resources */,
+				6325004B25599C4500F76545 /* SharedCustomCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,11 +232,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632500482559991200F76545 /* TimeTableViewCell.swift in Sources */,
 				AAE2BD3020EFCAB800FD64F1 /* Landscape.swift in Sources */,
 				AA7CDBA320ED2DBC004EFB9C /* DetailViewController.swift in Sources */,
 				AA7CDBA120ED1784004EFB9C /* TableViewCellViewController.swift in Sources */,
 				AA5016F820EC3D6E00F82883 /* SelfSizingCellViewController.swift in Sources */,
 				AA7CDBA920ED8A94004EFB9C /* Region.swift in Sources */,
+				6325004225593C7800F76545 /* CustomAccessoryTableViewCell.swift in Sources */,
 				AA0880F020EF15F8004BCAEA /* SwipeActionViewController.swift in Sources */,
 				AAA71FE420DF46CF00C5E2AB /* DelegatePetternViewController.swift in Sources */,
 				AA5016F420EC26AE00F82883 /* WorldTime.swift in Sources */,
@@ -232,6 +254,8 @@
 				AA0880EE20EF0BA6004BCAEA /* ReorderingViewController.swift in Sources */,
 				AA0880E420EEA136004BCAEA /* Products.swift in Sources */,
 				AA0880EC20EF05CB004BCAEA /* RowActionViewController.swift in Sources */,
+				632500452559417E00F76545 /* CustomCellPopUpViewController.swift in Sources */,
+				632500512559A62B00F76545 /* CustomHeaderView.swift in Sources */,
 				AA0880E620EEA301004BCAEA /* SingleSelectionViewController.swift in Sources */,
 				AAE2BD2E20EFC84D00FD64F1 /* PrefetchingViewController.swift in Sources */,
 				AA871A4920E372B8004E2E8B /* AccessoryViewViewController.swift in Sources */,

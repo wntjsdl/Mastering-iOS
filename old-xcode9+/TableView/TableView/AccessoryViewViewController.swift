@@ -45,12 +45,39 @@ extension AccessoryViewViewController: UITableViewDataSource {
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    
+    switch indexPath.row {
+    case 0:
+        cell.textLabel?.text = "Disclosure Indicator"
+        cell.accessoryType = .disclosureIndicator
+    case 1:
+        cell.textLabel?.text = "DetailButton"
+        cell.accessoryType = .detailButton
+    case 2:
+        cell.textLabel?.text = "Detail Disclosre Button"
+        cell.accessoryType = .detailDisclosureButton
+    case 3:
+        cell.textLabel?.text = "Checkmark"
+        cell.accessoryType = .checkmark
+    case 4:
+        return tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath)
+    default:
+        cell.textLabel?.text = "None"
+        cell.accessoryType = .none
+    }
       
       return cell
    }
 }
 
-
+extension AccessoryViewViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "pushSegue", sender: nil)
+    }
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        performSegue(withIdentifier: "modalSegue", sender: nil)
+    }
+}
 
 
 

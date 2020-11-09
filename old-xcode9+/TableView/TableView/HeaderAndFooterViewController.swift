@@ -30,7 +30,10 @@ class SectionHeaderAndFooterViewController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+    
+    let headerNib = UINib(nibName: "CustomHeader", bundle: nil)
       
+    listTableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "header")
    }
 }
 
@@ -52,10 +55,48 @@ extension SectionHeaderAndFooterViewController: UITableViewDataSource {
       
       return cell
    }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return list[section].title
+//    }
 }
 
 extension SectionHeaderAndFooterViewController: UITableViewDelegate {
-  
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CustomHeaderView
+        
+        headerView?.titleLabel.text = list[section].title
+        headerView?.countLabel.text = "\(list[section].countries.count)"
+        
+//        headerView?.textLabel?.text = list[section].title
+//        headerView?.detailTextLabel?.text = "Lorem Ipsum"
+//
+//        let v = UIView(frame: .zero)
+//        v.backgroundColor = UIColor.red
+//        v.isUserInteractionEnabled = false
+//        headerView?.backgroundView = v
+        
+        return headerView
+    }
+    
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        if let headerView = view as? UITableViewHeaderFooterView {
+////            if headerView.backgroundView == nil {
+////                let v = UIView(frame: .zero)
+////                v.backgroundColor = UIColor.red
+////                v.isUserInteractionEnabled = false
+////                headerView.backgroundView = v
+////            }
+//
+////            headerView.backgroundColor = UIColor.red
+//            headerView.textLabel?.textColor = UIColor.white
+//            headerView.textLabel?.textAlignment = .center
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 80
+    }
 }
 
 
