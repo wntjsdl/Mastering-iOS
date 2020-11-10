@@ -29,11 +29,23 @@ class SingleSelectionViewController: UIViewController {
    @IBOutlet weak var listTableView: UITableView!
    
    func selectRandomCell() {
-      
+    let section = Int(arc4random_uniform(UInt32(list.count)))
+    let row = Int(arc4random_uniform(UInt32(list[section].countries.count)))
+    let targetIndexPath = IndexPath(row: row, section: section)
+    
+    listTableView.selectRow(at: targetIndexPath, animated: true, scrollPosition: .top)
    }
    
    func deselect() {
-      
+    if let selected = listTableView.indexPathForSelectedRow {
+        listTableView.deselectRow(at: selected, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            [weak self] in
+            let first = IndexPath(row: 0, section: 0)
+            self?.listTableView.scrollToRow(at: first, at: .top, animated: true)
+        }
+    }
    }
    
    override func viewDidLoad() {
@@ -87,11 +99,46 @@ extension SingleSelectionViewController: UITableViewDataSource {
    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
       return list[section].title
    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row != 0
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+//        tableView.cellForRow(at: indexPath)?.textLabel?.textColor = UIColor.black
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+//        tableView.cellForRow(at: indexPath)?.textLabel?.textColor = UIColor(white: 217.0/255.0, alpha: 1.0)
+    }
 }
 
 
 extension SingleSelectionViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.row == 0  {
+            return nil
+        }
+        
+        return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let target = list[indexPath.section].countries[indexPath.row]
+        showAlert(with: target)
+        
+//        tableView.cellForRow(at: indexPath)?.textLabel?.textColor = UIColor.black
+    }
+    
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        print("deselected \(indexPath)")
+        
+//        tableView.cellForRow(at: indexPath)?.textLabel?.textColor = UIColor(white: 217.0/255.0, alpha: 1.0)
+    }
 }
 
 
@@ -110,7 +157,19 @@ class SingleSelectionCell: UITableViewCell {
    override func awakeFromNib() {
       super.awakeFromNib()
       
+    textLabel?.textColor = UIColor(white: 217.0/255.0, alpha: 1.0)
+    textLabel?.highlightedTextColor = UIColor.black
    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+    }
 }
 
 

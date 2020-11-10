@@ -31,7 +31,9 @@ class SectionIndexViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-
+    listTableView.sectionIndexColor = UIColor.white
+    listTableView.sectionIndexBackgroundColor = UIColor.lightGray
+    listTableView.sectionIndexTrackingBackgroundColor = UIColor.darkGray
    }
 }
 
@@ -56,6 +58,14 @@ extension SectionIndexViewController: UITableViewDataSource {
    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
       return list[section].title
    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return stride(from: 0, to: list.count, by: 2).map{ list[$0].title }
+    }
+    
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return index * 2
+    }
 }
 
 

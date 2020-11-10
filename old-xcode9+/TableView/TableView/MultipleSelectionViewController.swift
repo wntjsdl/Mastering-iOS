@@ -29,7 +29,10 @@ class MultipleSelectionViewController: UIViewController {
    @IBOutlet weak var listTableView: UITableView!
    
    @objc func report() {
-      
+    if let indexPathList = listTableView.indexPathsForSelectedRows {
+        let selected = indexPathList.map { list[$0.section].countries[$0.row] }.joined(separator: "\n")
+        showAlert(with: selected)
+    }
    }
    
    override func viewDidLoad() {
@@ -64,7 +67,11 @@ extension MultipleSelectionViewController: UITableViewDataSource {
 }
 
 class MultipleSelectionCell: UITableViewCell {
-   
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        accessoryType = selected ? .checkmark : .none
+    }
 }
 
 

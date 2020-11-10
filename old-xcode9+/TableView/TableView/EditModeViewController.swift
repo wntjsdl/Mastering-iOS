@@ -31,11 +31,14 @@ class EditModeViewController: UIViewController {
    var selectedList = [String]()
    
    @objc func toggleEditMode(_ sender: UISwitch) {
-      
+    listTableView.setEditing(sender.isOn, animated: true)
    }
    
    @objc func emptySelectedList() {
-      
+    productList.append(contentsOf: selectedList)
+    selectedList.removeAll()
+    
+    listTableView.reloadSections(IndexSet(integersIn: 0...1), with: .automatic)
    }
    
    override func viewDidLoad() {
@@ -43,6 +46,7 @@ class EditModeViewController: UIViewController {
       
       editingSwitch = UISwitch(frame: .zero)
       editingSwitch.addTarget(self, action: #selector(toggleEditMode(_:)), for: .valueChanged)
+    editingSwitch.isOn = listTableView.isEditing
       
       let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(emptySelectedList))
       deleteButton.tintColor = UIColor.red
@@ -93,11 +97,83 @@ extension EditModeViewController: UITableViewDataSource {
          return nil
       }
    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .insert:
+            let target = productList[indexPath.row]
+            let insertIndexPath = IndexPath(row: selectedList.count, section: 0)
+            selectedList.append(target)
+            productList.remove(at: indexPath.row)
+            
+            if #available(iOS 11.0, *) {
+                listTableView.performBatchUpdates({ [weak self]
+                    in
+                    self?.listTableView.insertRows(at: [insertIndexPath], with: .automatic)
+                    self?.listTableView.deleteRows(at: [indexPath], with: .automatic)
+                }, completion: nil)
+            } else {
+                // Fallback on earlier versions
+                listTableView.beginUpdates()
+                listTableView.insertRows(at: [insertIndexPath], with: .automatic)
+                listTableView.deleteRows(at: [indexPath], with: .automatic)
+                listTableView.endUpdates()
+            }
+            
+        case .delete:
+            let target = selectedList[indexPath.row]
+            let insertIndexPath = IndexPath(row: productList.count, section: 1)
+            productList.append(target)
+            selectedList.remove(at: indexPath.row)
+            
+            if #available(iOS 11.0, *) {
+                listTableView.performBatchUpdates({ [weak self]
+                    in
+                    self?.listTableView.insertRows(at: [insertIndexPath], with: .automatic)
+                    self?.listTableView.deleteRows(at: [indexPath], with: .automatic)
+                }, completion: nil)
+            } else {
+                // Fallback on earlier versions
+                listTableView.beginUpdates()
+                listTableView.insertRows(at: [insertIndexPath], with: .automatic)
+                listTableView.deleteRows(at: [indexPath], with: .automatic)
+                listTableView.endUpdates()
+            }
+            
+        default:
+            break
+        }
+    }
 }
 
 
 extension EditModeViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        switch indexPath.section {
+        case 0:
+            return .delete
+        case 1:
+            return .insert
+        default:
+            return .none
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+        editingSwitch.setOn(true, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        editingSwitch.setOn(false, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
 }
 
 
