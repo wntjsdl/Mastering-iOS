@@ -28,6 +28,7 @@ class PrefetchingViewController: UIViewController {
    
    lazy var refreshControl: UIRefreshControl = { [weak self] in
       let control = UIRefreshControl()
+    control.tintColor = self?.view.tintColor
       return control
    }()
    
@@ -41,6 +42,7 @@ class PrefetchingViewController: UIViewController {
          
          DispatchQueue.main.async {
             strongSelf.listTableView.reloadData()
+            strongSelf.listTableView.refreshControl?.endRefreshing()
          }
       }
    }
@@ -51,9 +53,29 @@ class PrefetchingViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
+    listTableView.prefetchDataSource = self
+    
+    listTableView.refreshControl = refreshControl
+    refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
    }
 }
 
+
+extension PrefetchingViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            downloadImage(at: indexPath.row)
+        }
+        print(#function, indexPaths)
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        print(#function, indexPaths)
+        for indexPath in indexPaths {
+            cancelDownload(at: indexPath.row)
+        }
+    }
+}
 
 
 extension PrefetchingViewController: UITableViewDataSource {

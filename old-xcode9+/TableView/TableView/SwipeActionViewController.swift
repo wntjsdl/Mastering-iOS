@@ -27,7 +27,7 @@ class SwipeActionViewController: UIViewController {
    @IBOutlet weak var listTableView: UITableView!
    
    var list = [("Always laugh when you can. It is cheap medicine.", "Lord Byron"), ("I probably hold the distinction of being one movie star who, by all laws of logic, should never have made it. At each stage of my career, I lacked the experience.", "Audrey Hepburn"), ("Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.", "Steve Jobs")]
-   
+
    override func viewDidLoad() {
       super.viewDidLoad()
       
@@ -48,12 +48,51 @@ extension SwipeActionViewController: UITableViewDataSource {
       
       return cell
    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    }
 }
 
 
 @available(iOS 11.0, *)
 extension SwipeActionViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let unreadAction = UIContextualAction(style: .normal, title: "Unread") { (action, view, completion) in
+            completion(true)
+        }
+        unreadAction.backgroundColor = UIColor.blue
+        unreadAction.image = UIImage(named: "mail")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [unreadAction])
+        return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completion in
+            self?.listTableView.beginUpdates()
+            self?.list.remove(at: indexPath.row)
+            self?.listTableView.deleteRows(at: [indexPath], with: .automatic)
+            self?.listTableView.endUpdates()
+        }
+        deleteAction.image = UIImage(named: "trash")
+        
+        let flagAction = UIContextualAction(style: .normal, title: "Flag") { (action, view, completion) in
+            completion(true)
+        }
+        flagAction.image = UIImage(named: "flag")
+        flagAction.backgroundColor = UIColor.orange
+        
+        let menuAction = UIContextualAction(style: .normal, title: "Etc") { (action, view, completion) in
+            completion(true)
+        }
+        menuAction.image = UIImage(named: "more")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, flagAction, menuAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
+    }
+    
 }
 
 

@@ -91,11 +91,58 @@ extension ReorderingViewController: UITableViewDataSource {
          return nil
       }
    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        var target: String? = nil
+        
+        switch sourceIndexPath.section {
+        case 0:
+            target = firstList.remove(at: sourceIndexPath.row)
+        case 1:
+            target = secondList.remove(at: sourceIndexPath.row)
+        case 2:
+            target = thirdList.remove(at: sourceIndexPath.row)
+        default:
+            break
+        }
+        
+        guard let item = target else { return }
+        
+        switch destinationIndexPath.section {
+        case 0:
+            firstList.insert(item, at: destinationIndexPath.row)
+        case 1:
+            secondList.insert(item, at: destinationIndexPath.row)
+        case 2:
+            thirdList.insert(item, at: destinationIndexPath.row)
+        default:
+            break
+        }
+    }
+    
 }
 
 
 extension ReorderingViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.section == 0 {
+            return sourceIndexPath
+        }
+        
+        return proposedDestinationIndexPath
+    }
 }
 
 
