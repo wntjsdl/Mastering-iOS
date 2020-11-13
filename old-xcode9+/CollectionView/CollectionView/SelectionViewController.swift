@@ -34,11 +34,23 @@ class SelectionViewController: UIViewController {
    @IBOutlet weak var listCollectionView: UICollectionView!
    
    func selectRandomItem() {
-      
+    let item = Int(arc4random_uniform(UInt32(list.count)))
+    let targetIndexPath = IndexPath(item: item, section: 0)
+    
+    listCollectionView.selectItem(at: targetIndexPath, animated: true, scrollPosition: .centeredHorizontally)
+    collectionView(listCollectionView, didSelectItemAt: targetIndexPath)
+    collectionView(listCollectionView, shouldSelectItemAt: targetIndexPath)
+    collectionView(listCollectionView, shouldDeselectItemAt: targetIndexPath)
+    
    }
    
    func reset() {
-      
+//    listCollectionView.deselectItem(at: <#T##IndexPath#>, animated: <#T##Bool#>)
+    listCollectionView.selectItem(at: nil, animated: true, scrollPosition: .left)
+    
+    let firstIndexPath = IndexPath(item: 0, section: 0)
+    listCollectionView.scrollToItem(at: firstIndexPath, at: .left, animated: true)
+    collectionView(listCollectionView, didDeselectItemAt: firstIndexPath)
    }
    
    override func viewDidLoad() {
@@ -46,10 +58,60 @@ class SelectionViewController: UIViewController {
       
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showMenu))
       
-      
+    listCollectionView.allowsSelection = true
+    listCollectionView.allowsMultipleSelection = false
    }
 }
 
+extension SelectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let color = list[indexPath.row].color
+        view.backgroundColor = color
+        print("#1", indexPath, #function)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        print("#2", indexPath, #function)
+        
+        guard let list = collectionView.indexPathsForSelectedItems else {
+            return true
+        }
+        
+        return !list.contains(indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let color = UIColor.white
+        view.backgroundColor = color
+        print("#6", indexPath, #function)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        print("#3", indexPath, #function)
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        print("#4", indexPath, #function)
+        
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.layer.borderWidth = 6
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        print("#5", indexPath, #function)
+        
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.layer.borderWidth = 0.0
+        }
+    }
+}
 
 
 extension SelectionViewController: UICollectionViewDataSource {

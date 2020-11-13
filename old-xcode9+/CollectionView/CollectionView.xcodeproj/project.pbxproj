@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		631BFC68255ED265005F5558 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BFC67255ED265005F5558 /* HeaderCollectionReusableView.swift */; };
+		631BFC6B255ED562005F5558 /* FooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BFC6A255ED562005F5558 /* FooterCollectionReusableView.swift */; };
 		63A642D4255D871500F965CE /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A642D3255D871500F965CE /* ColorCollectionViewCell.swift */; };
 		AA5B472321078E58007AC6A8 /* CustomCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B472221078E58007AC6A8 /* CustomCellViewController.swift */; };
 		AA5B47272107BCFA007AC6A8 /* SupplementaryViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B47262107BCFA007AC6A8 /* SupplementaryViewViewController.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		631BFC67255ED265005F5558 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		631BFC6A255ED562005F5558 /* FooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		63A642D3255D871500F965CE /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA5B472221078E58007AC6A8 /* CustomCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellViewController.swift; sourceTree = "<group>"; };
 		AA5B47262107BCFA007AC6A8 /* SupplementaryViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryViewViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 				63A642D3255D871500F965CE /* ColorCollectionViewCell.swift */,
 				AAB9670D2105493B0078FCA8 /* SelfSizingCellViewController.swift */,
 				AA5B47262107BCFA007AC6A8 /* SupplementaryViewViewController.swift */,
+				631BFC67255ED265005F5558 /* HeaderCollectionReusableView.swift */,
+				631BFC6A255ED562005F5558 /* FooterCollectionReusableView.swift */,
 				AA87B3422108F69700BFF504 /* SelectionViewController.swift */,
 				AA87B344210928F000BFF504 /* EditViewController.swift */,
 				AA87B34621092D8200BFF504 /* EditingHeaderCollectionReusableView.swift */,
@@ -192,6 +198,8 @@
 				AA87B34721092D8200BFF504 /* EditingHeaderCollectionReusableView.swift in Sources */,
 				AAB966FC210543350078FCA8 /* AppDelegate.swift in Sources */,
 				AAB967132105565C0078FCA8 /* FlowLayoutViewController.swift in Sources */,
+				631BFC68255ED265005F5558 /* HeaderCollectionReusableView.swift in Sources */,
+				631BFC6B255ED562005F5558 /* FooterCollectionReusableView.swift in Sources */,
 				AAB9671121054BB40078FCA8 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
