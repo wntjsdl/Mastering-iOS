@@ -28,6 +28,7 @@ class PrefetchingViewController: UIViewController {
    
    lazy var refreshControl: UIRefreshControl = { [weak self] in
       let control = UIRefreshControl()
+    control.tintColor = self?.view.tintColor
       return control
       }()
    
@@ -41,6 +42,7 @@ class PrefetchingViewController: UIViewController {
          
          DispatchQueue.main.async {
             strongSelf.listCollectionView.reloadData()
+            strongSelf.listCollectionView.refreshControl?.endRefreshing()
          }
       }
    }
@@ -51,8 +53,27 @@ class PrefetchingViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    listCollectionView.prefetchDataSource = self
+    
+    listCollectionView.refreshControl = refreshControl
+    refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
    }
+}
+
+extension PrefetchingViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            downloadImage(at: indexPath.item)
+        }
+        print(#function, indexPaths)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        print(#function, indexPaths)
+        for indexPath in indexPaths {
+            cancelDownload(at: indexPath.item)
+        }
+    }
 }
 
 
@@ -76,6 +97,18 @@ extension PrefetchingViewController: UICollectionViewDataSource {
       
       return cell
    }
+}
+
+extension PrefetchingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let imageView = cell.viewWithTag(100) as? UIImageView {
+           if let image = list[indexPath.row].image {
+              imageView.image = image
+           } else {
+              imageView.image = nil
+           }
+        }
+    }
 }
 
 

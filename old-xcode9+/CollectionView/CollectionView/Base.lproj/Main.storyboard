@@ -436,6 +436,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="1ee-rl-4RC" id="FKN-f0-M4u"/>
+                                    <outletCollection property="gestureRecognizers" destination="eDE-cv-gnv" appends="YES" id="I3S-iP-JQf"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -454,6 +455,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jkI-Os-ClF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="eDE-cv-gnv">
+                    <connections>
+                        <action selector="handlePanGesture:" destination="1ee-rl-4RC" id="hMf-dm-6vn"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-106" y="3010"/>
         </scene>

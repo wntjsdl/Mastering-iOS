@@ -24,38 +24,50 @@ import UIKit
 
 class ViewManagementViewController: UIViewController {
    
-   var grayView: UIView?
+    @IBOutlet weak var redView: UIView!
+    @IBOutlet weak var greenView: UIView!
+    @IBOutlet weak var blueView: UIView!
+    var grayView: UIView?
    
    func addRandomView() {
-      
+      let v = generateRandomView()
+    view.addSubview(v)
    }
    
    func insertRandomViewToBack() {
-      
+      let v = generateRandomView()
+    view.insertSubview(v, at: 0)
    }
    
    func removeTopmostRandomView() {
-      
+    let topmostRandomView = view.subviews.reversed().first { $0.tag > 0 }
+    topmostRandomView?.removeFromSuperview()
    }
    
    func bringRedViewToFront() {
-      
+    view.bringSubview(toFront: redView)
    }
    
    func sendRedViewToBack() {
-      
+    view.sendSubview(toBack: redView)
    }
    
    func switchGreenViewWithBlueView() {
-      
+    guard let greenViewIndex = view.subviews.index(of: greenView) else { return }
+    guard let blueViewIndex = view.subviews.index(of: blueView) else { return }
+    
+    view.exchangeSubview(at: greenViewIndex, withSubviewAt: blueViewIndex)
    }
    
    func addGrayViewToRedView() {
-      
+      grayView = generateGrayView()
+    redView.addSubview(grayView!)
    }
    
    func moveGrayViewToRootView() {
-      
+    if let grayView = grayView {
+        view.addSubview(grayView)
+    }
    }
    
    override func viewDidLoad() {
