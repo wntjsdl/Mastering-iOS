@@ -23,11 +23,18 @@
 import UIKit
 
 class InterfaceOrientationViewController: UIViewController {
-   
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return [.landscapeLeft, .landscapeRight]
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+    
       
    }
 }

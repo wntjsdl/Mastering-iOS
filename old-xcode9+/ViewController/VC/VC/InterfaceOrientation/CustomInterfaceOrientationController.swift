@@ -23,7 +23,9 @@
 import UIKit
 
 class CustomInterfaceOrientationController: UINavigationController {
-   
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return [.landscape]
+    }
    
 }
 

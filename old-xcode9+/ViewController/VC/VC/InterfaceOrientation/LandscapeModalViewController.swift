@@ -27,6 +27,38 @@ class LandscapeModalViewController: UIViewController {
 
    @IBOutlet weak var closeButton: UIButton!
    @IBOutlet weak var playerView: PlayerView!
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeLeft
+    }
+    
+    // 아이패드 호출 X
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        print(newCollection.verticalSizeClass.description)
+        
+        switch newCollection.verticalSizeClass {
+        case .regular:
+            closeButton.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+        default:
+            closeButton.backgroundColor = UIColor.green.withAlphaComponent(0.5)
+        }
+    }
+    
+    // rootView size를 기준으로 호출
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { (context) in
+            if size.height > size.width {
+                self.closeButton.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+            } else {
+                self.closeButton.backgroundColor = UIColor.green.withAlphaComponent(0.5)
+            }
+        }, completion: nil)
+
+    }
    
    override func viewDidLoad() {
       super.viewDidLoad()
