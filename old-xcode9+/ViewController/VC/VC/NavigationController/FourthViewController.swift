@@ -32,7 +32,8 @@ class FourthViewController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    navigationItem.title = "Fourth"
+    title = "Fourth"
    }
 }
 

@@ -25,24 +25,30 @@ import UIKit
 class SecondViewController: UIViewController {
    
    @IBAction func pop(_ sender: Any) {
-      
+    navigationController?.popViewController(animated: true)
    }
    
    @IBAction func pushThird(_ sender: Any) {
-      
+    guard let thirdVC = storyboard?.instantiateViewController(withIdentifier: "ThirdViewController") else { return }
+    navigationController?.pushViewController(thirdVC, animated: true)
    }
+    
    
    @objc func addRightButtons() {
       let btn1 = UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
       let btn2 = UIBarButtonItem(title: "Two", style: .plain, target: nil, action: nil)
       
-      
+      let sw = UISwitch()
+    let switchItem = UIBarButtonItem(customView: sw)
+    navigationItem.rightBarButtonItems = [switchItem, btn1, btn2]
+    navigationItem.setRightBarButtonItems([switchItem, btn1, btn2], animated: true)
    }
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    navigationItem.leftItemsSupplementBackButton = true
+    navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRightButtons))
    }
 }
 

@@ -23,16 +23,40 @@
 import UIKit
 
 class FirstViewController: UIViewController {
+    
+    @IBAction func switchChanged(_ sender: UISwitch) {
+        switch sender.isOn {
+        case true:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+            
+            if var list = navigationItem.rightBarButtonItems {
+                let btn = UIBarButtonItem(title: "Item", style: .plain, target: nil, action: nil)
+                list.append(btn)
+                navigationItem.rightBarButtonItems = list
+            }
+        case false:
+            navigationItem.leftBarButtonItem = nil
+            
+            let list = navigationItem.rightBarButtonItems?.dropLast()
+            navigationItem.rightBarButtonItems = Array(list!)
+        }
+    }
+    
+    
+    @IBAction func unwindToFirst(_ unwindSegue: UIStoryboardSegue) {
+        
+    }
    
    @IBAction func pushSecond(_ sender: Any) {
-      
+    guard let secondVC = storyboard?.instantiateViewController(withIdentifier: "SecondViewController") else { return }
+    navigationController?.pushViewController(secondVC, animated: true)
    }
    
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    navigationItem.backBarButtonItem?.title = "Go Back"
    }
 }
 
