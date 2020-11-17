@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6302324425641E3200029F6D /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6302324325641E3200029F6D /* CustomTabBarController.swift */; };
 		6337C1BF2560397200F72B01 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6337C1BE2560397200F72B01 /* MyViewController.swift */; };
 		6337C1C325603ABA00F72B01 /* CustomNibViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6337C1C125603AB900F72B01 /* CustomNibViewController.swift */; };
 		6337C1C425603ABA00F72B01 /* CustomNibViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6337C1C225603AB900F72B01 /* CustomNibViewController.xib */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6302324325641E3200029F6D /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		6337C1BE2560397200F72B01 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		6337C1C125603AB900F72B01 /* CustomNibViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNibViewController.swift; sourceTree = "<group>"; };
 		6337C1C225603AB900F72B01 /* CustomNibViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNibViewController.xib; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				AA6B877421183E340057356F /* TabBarController.storyboard */,
 				AA6B877621183ED70057356F /* TabBarHostViewController.swift */,
 				AA6B87782118446D0057356F /* FirstTabViewController.swift */,
+				6302324325641E3200029F6D /* CustomTabBarController.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				AAC345AA211DA7C8007D2460 /* ColorListTableViewController.swift in Sources */,
 				AA6B87792118446D0057356F /* FirstTabViewController.swift in Sources */,
 				AA18406221198094003102B0 /* BlackViewController.swift in Sources */,
+				6302324425641E3200029F6D /* CustomTabBarController.swift in Sources */,
 				AAC3459E211D640A007D2460 /* PlayerView.swift in Sources */,
 				AA1B5E722112FB5A002D1AF8 /* LandscapeModalViewController.swift in Sources */,
 				AA1B5E692112E89D002D1AF8 /* ModalViewController.swift in Sources */,

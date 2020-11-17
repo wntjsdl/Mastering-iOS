@@ -25,7 +25,15 @@ import UIKit
 class TabBarHostViewController: UIViewController {
    
    @IBAction func presentTabBarController(_ sender: Any) {
-      
+    let firstVC = storyboard!.instantiateViewController(withIdentifier: "FirstTabViewController")
+    firstVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+    let secondVC = storyboard!.instantiateViewController(withIdentifier: "SecondTabViewController")
+    let thirdVC = storyboard!.instantiateViewController(withIdentifier: "ThirdTabViewController")
+    
+    let tbc = UITabBarController()
+    tbc.viewControllers = [firstVC, secondVC, thirdVC]
+    
+    present(tbc, animated: true, completion: nil)
    }
    
    override func viewDidLoad() {

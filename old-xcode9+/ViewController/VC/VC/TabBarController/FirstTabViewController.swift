@@ -25,18 +25,34 @@ import UIKit
 class FirstTabViewController: UIViewController {
    
    @IBAction func selectSecondTab(_ sender: Any) {
-      
+    guard let secondChild = tabBarController?.viewControllers?[1] else { return }
+    tabBarController?.selectedViewController = secondChild
    }
    
    @IBAction func selectThirdTab(_ sender: Any) {
-      
+    tabBarController?.selectedIndex = 2
    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let regularImage = #imageLiteral(resourceName: "calendar_compact")
+        let compactImage = #imageLiteral(resourceName: "calendar_regular")
+        
+        let item = UITabBarItem(title: "Calendar", image: regularImage, selectedImage: compactImage)
+        item.badgeColor = UIColor.black
+        item.badgeValue = "7"
+        
+        // badge text 속성 값 변경 method
+        // item.setBadgeTextAttributes(<#T##textAttributes: [String : Any]?##[String : Any]?#>, for: <#T##UIControlState#>)
+        
+        tabBarItem = item
+    }
    
       
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      
+    
    }   
 }
 
