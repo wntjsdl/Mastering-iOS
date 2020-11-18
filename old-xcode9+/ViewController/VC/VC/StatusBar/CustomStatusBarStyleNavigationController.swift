@@ -23,5 +23,15 @@
 import UIKit
 
 class CustomStatusBarStyleNavigationController: UINavigationController {
-   
+    override var childViewControllerForStatusBarHidden: UIViewController? {
+        return topViewController
+    }
+    
+    override var childViewControllerForStatusBarStyle: UIViewController? {
+        return topViewController
+    }
+    
+    override func childViewControllerForHomeIndicatorAutoHidden() -> UIViewController? {
+        return topViewController
+    }
 }

@@ -23,10 +23,20 @@
 import UIKit
 
 class BlackViewController: UIViewController {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    // Regular Mode에서 Status Bar 나오지 않음
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+    
+//    preferredStatusBarStyle
    }
 }
 

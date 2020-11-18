@@ -27,12 +27,25 @@ class PerformSegueViewController: UIViewController {
    @IBOutlet weak var grantedSwitch: UISwitch!
    
    @IBAction func perform(_ sender: Any) {
-      
+      performSegue(withIdentifier: "manualSegue", sender: self)
    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MessageViewController {
+            vc.segueName = segue.identifier
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "conditionalSegue" {
+            return grantedSwitch.isOn
+        }
+        
+        return true
+    }
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
       
    }
 }

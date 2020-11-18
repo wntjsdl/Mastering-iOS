@@ -28,17 +28,40 @@ class CustomSplitViewController: UISplitViewController {
       super.viewDidLoad()
       
       delegate = self
+    
+    preferredDisplayMode = .automatic
    }
    
    func setupDefaultValue() {
-      
+    guard let nav = viewControllers.first as? UINavigationController, let masterVC = nav.viewControllers.first as? ColorListTableViewController else { return }
+    guard let detailVC = viewControllers.last?.childViewControllers.first as? ColorDetailViewController else { return }
+    
+    detailVC.color = masterVC.list.first
+    
+    switch displayMode {
+    case .primaryHidden, .primaryOverlay:
+        detailVC.navigationItem.leftBarButtonItem = displayModeButtonItem
+    default:
+        detailVC.navigationItem.leftBarButtonItem = nil
+    }
    }
 }
 
 
 
 extension CustomSplitViewController: UISplitViewControllerDelegate {
-   
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+    
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+        switch displayMode {
+        case .primaryHidden, .primaryOverlay:
+            viewControllers.last?.childViewControllers.first?.navigationItem.leftBarButtonItem = displayModeButtonItem
+        default:
+                viewControllers.last?.childViewControllers.first?.navigationItem.leftBarButtonItem = nil
+        }
+    }
 }
 
 
