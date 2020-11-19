@@ -32,7 +32,8 @@ class AnimationOptionsViewController: UIViewController {
    }
    
    @IBAction func stop(_ sender: Any) {
-      
+    redView.layer.removeAllAnimations()
+    reset(nil)
    }
    
    @IBAction func animate(_ sender: Any) {
@@ -44,6 +45,8 @@ class AnimationOptionsViewController: UIViewController {
          self.redView.alpha = 0.5
          self.redView.backgroundColor = UIColor.blue
       }
+    
+    UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: animations, completion: nil)
    }
    
    override func viewDidLoad() {

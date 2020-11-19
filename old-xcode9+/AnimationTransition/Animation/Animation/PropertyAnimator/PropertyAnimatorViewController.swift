@@ -38,23 +38,46 @@ class PropertyAnimatorViewController: UIViewController {
    }
    
    @IBAction func pause(_ sender: Any) {
-      
+    animator?.pauseAnimation()
+    print(animator?.fractionComplete)
    }
    
    @IBAction func animate(_ sender: Any) {
-
+//    animator = UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 7, delay: 0, options: [], animations: {
+//        self.moveAndResize()
+//    }, completion: {
+//        position in
+//        switch position {
+//        case .start:
+//            print("Start")
+//        case .end:
+//            print("End")
+//        case .current:
+//            print("Current")
+//        }
+//    })
+    animator = UIViewPropertyAnimator(duration: 7, curve: .linear, animations: {
+        self.moveAndResize()
+    })
+    
+    animator?.addCompletion({ (position) in
+        print("DONE \(position)")
+    })
    }
    
    @IBAction func resume(_ sender: Any) {
-
+    animator?.startAnimation()
    }
    
    @IBAction func stop(_ sender: Any) {
-
+    animator?.stopAnimation(false)
+    animator?.finishAnimation(at: .current)
    }
    
    @IBAction func add(_ sender: Any) {
-
+    animator?.addAnimations({
+        self.redView.backgroundColor = UIColor.blue
+    }, delayFactor: 0)
    }
    
    override func viewDidLoad() {

@@ -43,17 +43,28 @@ class UIViewKeyframeAnimationViewController: UIViewController {
    
    
    @IBAction func animate(_ sender: Any) {
-      UIView.animate(withDuration: 1, animations: {
-         self.phase1()
-      }, completion: { finished in
-         UIView.animate(withDuration: 1, animations: {
+//      UIView.animate(withDuration: 1, animations: {
+//         self.phase1()
+//      }, completion: { finished in
+//         UIView.animate(withDuration: 1, animations: {
+//            self.phase2()
+//         }, completion: { finished in
+//            UIView.animate(withDuration: 1, animations: {
+//               self.phase3()
+//            })
+//         })
+//      })
+    UIView.animateKeyframes(withDuration: 3, delay: 0, options: [], animations: {
+        UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {
+            self.phase1()
+        })
+        UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.3, animations: {
             self.phase2()
-         }, completion: { finished in
-            UIView.animate(withDuration: 1, animations: {
-               self.phase3()
-            })
-         })
-      })      
+        })
+        UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.4, animations: {
+            self.phase3()
+        })
+    }, completion: nil)
    }
 }
 

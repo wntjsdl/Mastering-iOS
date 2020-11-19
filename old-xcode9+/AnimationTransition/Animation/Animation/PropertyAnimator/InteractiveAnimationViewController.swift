@@ -39,7 +39,7 @@ class InteractiveAnimationViewController: UIViewController {
    }
    
    @IBAction func sliderChanged(_ sender: UISlider) {
-      
+    animator?.fractionComplete = CGFloat(sender.value)
    }
    
    override func viewDidLoad() {
