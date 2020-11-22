@@ -28,7 +28,10 @@ class PresentationViewController: UIViewController {
    }
    
    @IBAction func present(_ sender: Any) {
-      
+    guard let modalVC = storyboard?.instantiateViewController(withIdentifier: "ModalViewController") else { return }
+    
+    present(modalVC, animated: true, completion: nil)
+    
    }
 }
 

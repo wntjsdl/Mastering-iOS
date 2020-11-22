@@ -31,7 +31,10 @@ class TransitionStyleViewController: UIViewController {
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
+    let presentedVC = segue.destination
+    
+    presentedVC.modalPresentationStyle = .fullScreen
+    presentedVC.modalTransitionStyle = selectedTransitionStyle
    }
    
    
@@ -39,6 +42,8 @@ class TransitionStyleViewController: UIViewController {
       let sb = UIStoryboard(name: "Presentation", bundle: nil)
       let modalVC = sb.instantiateViewController(withIdentifier: "ModalViewController")
       
+    modalVC.modalPresentationStyle = .fullScreen
+    modalVC.modalTransitionStyle = selectedTransitionStyle
       
       present(modalVC, animated: true, completion: nil)
    }
