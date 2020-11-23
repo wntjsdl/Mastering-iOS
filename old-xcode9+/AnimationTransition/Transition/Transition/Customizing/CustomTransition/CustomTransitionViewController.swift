@@ -28,14 +28,23 @@ class CustomTransitionViewController: UIViewController {
    
    @IBOutlet weak var listCollectionView: UICollectionView!
    
+    let animator = ZoomAnimationController()
+    
+    var interactiveAnimator: PinchTransitionController?
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       if let vc = segue.destination as? ImageViewController {
          if let cell = sender as? UICollectionViewCell, let indexPath = listCollectionView.indexPath(for: cell) {
             vc.image = list[indexPath.item]
             
+            animator.targetImage = list[indexPath.item]
+            animator.targetIndexPath = indexPath
+            
+            interactiveAnimator = PinchTransitionController(viewController: segue.destination)
          }
       }
+    
+    segue.destination.transitioningDelegate = self
    }
    
    override func viewDidLoad() {
@@ -46,6 +55,21 @@ class CustomTransitionViewController: UIViewController {
 }
 
 
+extension CustomTransitionViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.presenting = true
+        return animator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.presenting = false
+        return animator
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactiveAnimator
+    }
+}
 
 
 
