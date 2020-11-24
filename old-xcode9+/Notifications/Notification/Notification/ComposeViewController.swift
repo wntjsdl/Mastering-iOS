@@ -22,6 +22,9 @@
 
 import UIKit
 
+extension NSNotification.Name {
+    static let NewValueDidInput = NSNotification.Name("NewValueDidInputNotification")
+}
 
 class ComposeViewController: UIViewController {
    
@@ -32,7 +35,12 @@ class ComposeViewController: UIViewController {
    }
    
    @IBAction func postValue(_ sender: Any) {
-      
+    guard let text = inputField.text else { return }
+    
+    DispatchQueue.global().async {
+        NotificationCenter.default.post(name: NSNotification.Name.NewValueDidInput, object: nil, userInfo: ["NewValue": text])
+    }
+    
       dismiss(animated: true, completion: nil)
    }
    

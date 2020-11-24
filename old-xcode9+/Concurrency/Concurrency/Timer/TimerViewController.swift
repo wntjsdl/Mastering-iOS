@@ -46,13 +46,28 @@ class TimerViewController: UIViewController {
    }
    
    var timer: Timer?
+    
+    @objc func timerFired(_ timer: Timer) {
+        updateTimer(timer)
+    }
    
    @IBAction func startTimer(_ sender: Any) {
-   
+    guard timer == nil else { return }
+    
+//    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+//        guard timer.isValid else { return }
+//        self.updateTimer(timer)
+//    })
+    timer = Timer(timeInterval: 1, target: self, selector: #selector(timerFired(_:)), userInfo: nil, repeats: true)
+    timer?.tolerance = 0.2
+    RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
+    timer?.fire()
    }
    
    @IBAction func stopTimer(_ sender: Any) {
-      
+    timer?.invalidate()
+    timer = nil
+    resetTimer()
    }
    
    override func viewDidLoad() {
@@ -63,11 +78,14 @@ class TimerViewController: UIViewController {
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-      
+    
+    startTimer(self)
    }
    
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
-            
+    
+    timer?.invalidate()
+    timer = nil
    }
 }

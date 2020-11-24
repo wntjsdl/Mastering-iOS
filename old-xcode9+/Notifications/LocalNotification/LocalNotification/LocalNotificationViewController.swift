@@ -21,6 +21,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class LocalNotificationViewController: UIViewController {
    var interval: TimeInterval = 1
@@ -28,13 +29,31 @@ class LocalNotificationViewController: UIViewController {
    @IBOutlet weak var inputField: UITextField!
    
    @IBAction func schedule(_ sender: Any) {
-      
+      let content = UNMutableNotificationContent()
+    content.title = "Hello"
+    content.body = inputField.text ?? "Empty body"
+    content.badge = 123
+    content.sound = UNNotificationSound.default()
+    
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+    
+    let request = UNNotificationRequest(identifier: "test", content: content, trigger: trigger)
+    
+    UNUserNotificationCenter.current().add(request) { (error) in
+        if let error = error {
+            print(error)
+        } else {
+            print("Done")
+        }
+    }
+    
+    inputField.text = nil
    }
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    UIApplication.shared.applicationIconBadgeNumber = 0
    }
 }
 

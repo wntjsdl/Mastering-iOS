@@ -27,8 +27,8 @@ class CustomSoundViewController: UIViewController {
       let content = UNMutableNotificationContent()
       content.title = "Hello"
       content.body = "Custom Sound"
-      content.sound = UNNotificationSound.default()
-      
+      content.sound = UNNotificationSound(named: "bell.aif")
+    
       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
       
       let request = UNNotificationRequest(identifier: "CustomSound", content: content, trigger: trigger)

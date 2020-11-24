@@ -31,7 +31,27 @@ class AttachmentsViewController: UIViewController {
       content.body = "Image Attachment"
       content.sound = UNNotificationSound.default()
       
-      
+    guard let url = Bundle.main.url(forResource: "hello", withExtension: "png") else {
+        return
+    }
+    
+    var options = [UNNotificationAttachmentOptionsThumbnailHiddenKey: true]
+    
+    guard let imageAttachment = try? UNNotificationAttachment(identifier: "hello-image", url: url, options: options) else {
+        return
+    }
+    
+    options = [UNNotificationAttachmentOptionsThumbnailHiddenKey: false]
+    
+    guard let thumbUrl = Bundle.main.url(forResource: "logo", withExtension: "png") else {
+        return
+    }
+    
+    guard let thumbnaiAttachment = try? UNNotificationAttachment(identifier: "thumbnai-image", url: thumbUrl, options: options) else {
+        return
+    }
+    
+    content.attachments = [imageAttachment, thumbnaiAttachment]
       
       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
       let request = UNNotificationRequest(identifier: "Image Attachment", content: content, trigger: trigger)
@@ -44,7 +64,15 @@ class AttachmentsViewController: UIViewController {
       content.body = "Audio Attachment"
       content.sound = UNNotificationSound.default()
       
-      
+    guard let url = Bundle.main.url(forResource: "bell", withExtension: "aif") else {
+        return
+    }
+    
+    guard let audioAttachment = try? UNNotificationAttachment(identifier: "audio", url: url, options: nil) else {
+        return
+    }
+    
+    content.attachments = [audioAttachment]
       
       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
       let request = UNNotificationRequest(identifier: "Audio Attachment", content: content, trigger: trigger)
@@ -57,7 +85,15 @@ class AttachmentsViewController: UIViewController {
       content.body = "Video Attachment"
       content.sound = UNNotificationSound.default()
 
-      
+    guard let url = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
+        return
+    }
+    
+    guard let videoAttachment = try? UNNotificationAttachment(identifier: "video", url: url, options: nil) else {
+        return
+    }
+    
+    content.attachments = [videoAttachment]
       
       
       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
