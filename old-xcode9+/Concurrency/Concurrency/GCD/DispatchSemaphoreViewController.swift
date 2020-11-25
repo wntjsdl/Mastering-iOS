@@ -34,22 +34,30 @@ class DispatchSemaphoreViewController: UIViewController {
    @IBAction func synchronize(_ sender: Any) {
       value = 0
       valueLabel.text = "\(value)"
+    
+    let sem = DispatchSemaphore(value: 1)
       
       workQueue.async(group: group) {
          for _ in 1...1000 {
+            sem.wait()
             self.value += 1
+            sem.signal()
          }
       }
       
       workQueue.async(group: group) {
          for _ in 1...1000 {
+            sem.wait()
             self.value += 1
+            sem.signal()
          }
       }
       
       workQueue.async(group: group) {
          for _ in 1...1000 {
+            sem.wait()
             self.value += 1
+            sem.signal()
          }
       }
       
@@ -61,15 +69,20 @@ class DispatchSemaphoreViewController: UIViewController {
    @IBAction func controlExecutionOrder(_ sender: Any) {
       value = 0
       valueLabel.text = "\(value)"
+    
+    let sem = DispatchSemaphore(value: 0)
       
       workQueue.async {
          for _ in 1...100 {
             self.value += 1
             Thread.sleep(forTimeInterval: 0.1)
          }
+        
+        sem.signal()
       }
       
       DispatchQueue.main.async {
+        sem.wait()
          self.valueLabel.text = "\(self.value)"
       }
    }

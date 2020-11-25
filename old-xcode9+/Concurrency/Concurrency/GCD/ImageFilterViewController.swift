@@ -26,6 +26,11 @@ class ImageFilterViewController: UIViewController {
    
    @IBOutlet weak var listCollectionView: UICollectionView!
    
+    let downloadQueue = DispatchQueue(label: "DownloadQueue", attributes: .concurrent)
+    let downloadGroup = DispatchGroup()
+    
+    let filterQueue = DispatchQueue(label: "FilterQueue", attributes: .concurrent)
+    
    var isCancelled = false
    
    @IBAction func start(_ sender: Any) {
@@ -34,7 +39,27 @@ class ImageFilterViewController: UIViewController {
       
       isCancelled = false
    
-      
+    PhotoDataSource.shared.list.forEach { data in
+        self.downloadQueue.async(group: self.downloadGroup) {
+            self.downloadAndResize(target: data)
+        }
+    }
+    
+    self.downloadGroup.notify(queue: DispatchQueue.main) {
+        self.reloadCollectionView()
+    }
+    
+    self.downloadGroup.notify(queue: self.filterQueue) {
+        DispatchQueue.concurrentPerform(iterations: PhotoDataSource.shared.list.count) { (index) in
+            let data = PhotoDataSource.shared.list[index]
+            self.applyFilter(target: data)
+            
+            let targetIndexPath = IndexPath(item: index, section: 0)
+            DispatchQueue.main.async {
+                self.reloadCollectionView(at: targetIndexPath)
+            }
+        }
+    }
    }
    
    @IBAction func cancel(_ sender: Any) {

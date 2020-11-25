@@ -29,10 +29,21 @@ class StartViewController: UIViewController {
    
    @IBAction func start(_ sender: Any) {
       countLabel.text = "0"
-      
-      for count in 0...100 {
-         countLabel.text = "\(count)"
-      }      
+    self.logThread(with: "Start")
+    
+    DispatchQueue.global().async {
+        for count in 0..<3 {
+            self.logThread(with: "for #\(count)")
+            DispatchQueue.main.async {
+                self.logThread(with: "update label")
+                self.countLabel.text = "\(count)"
+            }
+          Thread.sleep(forTimeInterval: 0.1)
+        }
+        self.logThread(with: "Done")
+    }
+     
+    self.logThread(with: "End")
    }
    
    func logThread(with task: String) {

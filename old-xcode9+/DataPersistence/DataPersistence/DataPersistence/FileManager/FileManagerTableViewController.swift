@@ -33,19 +33,23 @@ struct Content {
    let url: URL
    
    var name: String {
-      return ""
+    let values = try? url.resourceValues(forKeys: [.localizedNameKey])
+    return values?.localizedName ?? "???"
    }
    
    var size: Int {
-      return 0
+    let values = try? url.resourceValues(forKeys: [.fileSizeKey])
+    return values?.fileSize ?? 0
    }
    
    var type: Type {
-      return .file
+    let values = try? url.resourceValues(forKeys: [.isDirectoryKey])
+    return values?.isDirectory == true ? .directory : .file
    }
    
    var isExcludedFromBackup: Bool {
-      return false
+    let values = try? url.resourceValues(forKeys: [.isExecutableKey])
+    return values?.isExcludedFromBackup ?? false
    }
 }
 
@@ -66,15 +70,70 @@ class FileManagerTableViewController: UITableViewController {
    
    
    func refreshContents() {
-      
+    contents.removeAll()
+    
+    defer {
+        tableView.reloadData()
+    }
+    
+    guard let url = currentDirectoryUrl else {
+        fatalError("empty url")
+    }
+    
+    do {
+        let properties: [URLResourceKey] = [.localizedNameKey, .isDirectoryKey, .fileSizeKey, .isExcludedFromBackupKey]
+        
+        let currentContentUrls = try
+            FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: properties, options: .skipsHiddenFiles)
+        
+        for url in currentContentUrls {
+            let content = Content(url: url)
+            contents.append(content)
+        }
+        
+        contents.sort { lhs, rhs -> Bool in
+            if lhs.type == rhs.type {
+                return lhs.name.lowercased() < rhs.name.lowercased()
+            }
+            
+            return lhs.type.rawValue < rhs.type.rawValue
+        }
+        
+    } catch {
+        print(error)
+    }
    }
    
    func updateNavigationTitle() {
-      
+    guard let url = currentDirectoryUrl else {
+        navigationItem.title = "???"
+        return
+    }
+    
+    do {
+        let values = try url.resourceValues(forKeys: [.localizedNameKey])
+        navigationItem.title = values.localizedName
+    } catch {
+        print(error)
+    }
    }
    
    func move(to url: URL) {
-      
+    do {
+        let reachable = try url.checkResourceIsReachable()
+        if !reachable {
+            return
+        }
+    } catch {
+        print(error)
+        return
+    }
+    
+    if let vc = storyboard?.instantiateViewController(withIdentifier: "FileManagerTableViewController") as? FileManagerTableViewController {
+        vc.currentDirectoryUrl = url
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
    }
 
    
@@ -128,7 +187,9 @@ class FileManagerTableViewController: UITableViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    if currentDirectoryUrl == nil {
+        currentDirectoryUrl = URL(fileURLWithPath: NSHomeDirectory())
+    }
    }
    
    // MARK: - Table view data source

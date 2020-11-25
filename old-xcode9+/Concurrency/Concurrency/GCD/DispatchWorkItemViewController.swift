@@ -28,10 +28,30 @@ class DispatchWorkItemViewController: UIViewController {
    var currentWorkItem: DispatchWorkItem!
    
    @IBAction func submitItem(_ sender: Any) {
-      
+    currentWorkItem = DispatchWorkItem(block: {
+        for num in 0..<100 {
+            guard !self.currentWorkItem.isCancelled else { return }
+            print(num, separator: " ", terminator: " ")
+            Thread.sleep(forTimeInterval: 0.1)
+        }
+    })
+    
+    workQueue.async(execute: currentWorkItem)
+    
+    currentWorkItem.notify(queue: workQueue) {
+        print("Done")
+    }
+    
+    let result = currentWorkItem.wait(timeout: .now() + 3)
+    switch result {
+    case .timedOut:
+        print("timedOut")
+    case .success:
+        print("success")
+    }
    }
    
    @IBAction func cancelItem(_ sender: Any) {
-      
+    currentWorkItem.cancel()
    }
 }

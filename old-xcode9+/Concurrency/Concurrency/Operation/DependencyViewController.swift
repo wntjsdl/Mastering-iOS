@@ -38,12 +38,33 @@ class DependencyViewController: UIViewController {
       uiOperations.removeAll()
       backgroundOperations.removeAll()
       
-      
+    DispatchQueue.global().async {
+        let reloadOp = ReloadOperation(collectionView: self.listCollectionView)
+        self.uiOperations.append(reloadOp)
+        
+        for (index, data) in PhotoDataSource.shared.list.enumerated() {
+            let downloadOp = DownloadOperation(target: data)
+            reloadOp.addDependency(downloadOp)
+            self.backgroundOperations.append(downloadOp)
+            
+            let filterOp = FilterOperation(target: data)
+            filterOp.addDependency(reloadOp)
+            self.backgroundOperations.append(filterOp)
+            
+            let reloadItemOp = ReloadOperation(collectionView: self.listCollectionView, indexPath: IndexPath(item: index, section: 0))
+            reloadItemOp.addDependency(filterOp)
+            self.uiOperations.append(reloadItemOp)
+        }
+        self.backgroundQueue.addOperations(self.backgroundOperations, waitUntilFinished: false)
+        self.mainQueue.addOperations(self.uiOperations, waitUntilFinished: false)
+    }
    }
    
    
    @IBAction func cancelOperation(_ sender: Any) {
-      
+//    mainQueue.cancelAllOperations()
+    uiOperations.forEach { $0.cancel() }
+    backgroundQueue.cancelAllOperations()
    }
    
    
@@ -51,6 +72,8 @@ class DependencyViewController: UIViewController {
       super.viewDidLoad()
       
       PhotoDataSource.shared.reset()
+    
+    backgroundQueue.maxConcurrentOperationCount = 5
    }
 }
 
