@@ -32,14 +32,19 @@ class FetchedPropertyTableViewController: UITableViewController {
       
       let sortByName = NSSortDescriptor(key: "name", ascending: true)
       request.sortDescriptors = [sortByName]
+    
+//    if let model = DataManager.shared.container?.managedObjectModel, let entity = model.entitiesByName["Department"], let property = entity.propertiesByName["lowSalary"] as? NSFetchedPropertyDescription, let fetchRequest = property.fetchRequest {
+//        let sortBySalary = NSSortDescriptor(key: #keyPath(EmployeeEntity.salary), ascending: true)
+//        fetchRequest.sortDescriptors = [sortBySalary]
+//    }
       
       do {
-//         if let first = try DataManager.shared.mainContext.fetch(request).first as? DepartmentEntity {
-//            navigationItem.title = first.name
-//            
-//
-//         }
-//         tableView.reloadData()
+         if let first = try DataManager.shared.mainContext.fetch(request).first as? DepartmentEntity {
+            navigationItem.title = first.name
+            
+            list = first.value(forKey: "lowSalary") as! [NSManagedObject]
+         }
+         tableView.reloadData()
       } catch {
          fatalError(error.localizedDescription)
       }

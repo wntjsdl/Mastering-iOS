@@ -29,6 +29,8 @@ class ResultTypesViewController: UIViewController {
    
    @IBAction func fetchManagedObject(_ sender: Any) {
       let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Employee")
+    
+    request.resultType = .managedObjectResultType
       
       do {
          let list = try context.fetch(request)
@@ -43,13 +45,17 @@ class ResultTypesViewController: UIViewController {
    
    @IBAction func fetchCount(_ sender: Any) {
       let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Employee")
-      
+    
+    request.resultType = .countResultType
+    
       do {
          let list = try context.fetch(request)
          if let first = list.first {
             print(type(of: first))
             print(first)
          }
+        
+        let cnt = try context.count(for: request)
       } catch {
          fatalError(error.localizedDescription)
       }
@@ -57,7 +63,10 @@ class ResultTypesViewController: UIViewController {
    
    @IBAction func fetchDictionary(_ sender: Any) {
       let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Employee")
-      
+    
+    request.resultType = .dictionaryResultType
+    request.propertiesToFetch = ["name", "address"]
+    
       do {
          let list = try context.fetch(request)
          if let first = list.first {
@@ -71,6 +80,8 @@ class ResultTypesViewController: UIViewController {
    
    @IBAction func fetchManagedObjectID(_ sender: Any) {
       let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Employee")
+    
+    request.resultType = .managedObjectIDResultType
       
       do {
          let list = try context.fetch(request)

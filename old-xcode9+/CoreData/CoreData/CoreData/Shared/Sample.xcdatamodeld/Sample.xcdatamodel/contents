@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H15" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Person" representedClassName="PersonEntity" syncable="YES" codeGenerationType="category">
+    <entity name="Department" representedClassName="DepartmentEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" inverseName="department" inverseEntity="Employee"/>
+        <fetchedProperty name="lowSalary" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Employee" predicateString="salary &lt;= 30000"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="Employee" representedClassName="EmployeeEntity" parentEntity="Person" syncable="YES" codeGenerationType="class">
+        <attribute name="salary" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="employees" inverseEntity="Department"/>
+    </entity>
+    <entity name="Person" representedClassName="PersonEntity" isAbstract="YES" syncable="YES" codeGenerationType="category">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
     </entity>
+    <fetchRequest name="highSalary" entity="Employee" predicateString="salary &gt;= 80000 AND department.name BEGINSWITH $deptName" fetchLimit="100"/>
     <elements>
-        <element name="Person" positionX="-54" positionY="-9" width="128" height="88"/>
+        <element name="Department" positionX="12.359375" positionY="26.3046875" width="128" height="101"/>
+        <element name="Employee" positionX="-266.3515625" positionY="26.16015625" width="128" height="73"/>
+        <element name="Person" positionX="-265.24609375" positionY="-126.2265625" width="128" height="88"/>
     </elements>
 </model>

@@ -25,8 +25,8 @@ import CoreData
 
 class RDepartmentComposerTableViewController: UITableViewController {
    
-   var department: NSManagedObject?
-   var list = [NSManagedObject]()
+   var department: DepartmentEntity?
+   var list = [EmployeeEntity]()
    
    @IBAction func cancel(_ sender: Any) {
       dismiss(animated: true, completion: nil)
@@ -37,6 +37,18 @@ class RDepartmentComposerTableViewController: UITableViewController {
          fatalError()
       }
       
+    guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
+        fatalError()
+    }
+    
+    let selectedEmployees = selectedIndexPaths.map { list[$0.row] }
+    
+    for employee in selectedEmployees {
+        targetDept.addToEmployees(employee)
+        employee.department = targetDept
+    }
+    
+    DataManager.shared.saveMainContext()
       
       dismiss(animated: true, completion: nil)
    }
@@ -44,7 +56,8 @@ class RDepartmentComposerTableViewController: UITableViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      
+    list = DataManager.shared.fetchNotAssignedEmployee()
+    tableView.reloadData()
    }
 }
 

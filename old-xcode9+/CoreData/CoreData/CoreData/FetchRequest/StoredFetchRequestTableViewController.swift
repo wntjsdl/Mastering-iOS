@@ -28,7 +28,27 @@ class StoredFetchRequestTableViewController: UITableViewController {
    var list = [NSManagedObject]()
    
    func fetch() {
-      
+    guard let model = DataManager.shared.container?.managedObjectModel else {
+        fatalError("Invalid Model")
+    }
+    
+//    guard let request = model.fetchRequestTemplate(forName: "highSalary") as? NSFetchRequest<NSManagedObject> else {
+//        fatalError("Not Found")
+//    }
+    
+    guard let request = model.fetchRequestFromTemplate(withName: "highSalary", substitutionVariables: ["deptName": "Dev"]) as? NSFetchRequest<NSManagedObject> else {
+        fatalError("Not Found")
+    }
+    
+    let sortBySalary = NSSortDescriptor(key: #keyPath(EmployeeEntity.salary), ascending: false)
+    request.sortDescriptors = [sortBySalary]
+    
+    do {
+        list = try DataManager.shared.mainContext.fetch(request)
+        tableView.reloadData()
+    } catch {
+        print(error)
+    }
    }
    
    override func viewDidLoad() {

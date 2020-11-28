@@ -30,7 +30,23 @@ class FetchAllViewController: UITableViewController {
    @IBAction func fetch(_ sender: Any?) {
       let context = DataManager.shared.mainContext
       
-      
+    // 1
+//    let request = NSFetchRequest<NSManagedObject>()
+//    let entity = NSEntityDescription.entity(forEntityName: "Employee", in: context)
+//    request.entity = entity
+    
+    // 2
+//    let request = NSFetchRequest<NSManagedObject>(entityName: "Employee")
+    
+    // 3
+    let request: NSFetchRequest<EmployeeEntity> = EmployeeEntity.fetchRequest()
+    
+    do {
+        list = try context.fetch(request)
+        tableView.reloadData()
+    } catch {
+        fatalError(error.localizedDescription)
+    }
    }
    
    override func viewDidLoad() {
