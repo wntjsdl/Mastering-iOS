@@ -13,14 +13,25 @@ struct Employee: Codable {
    var address: String?
    
    //
-   
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+        
+        age = try container.decode(Int.self, forKey: .age)
+        guard (30...60).contains(age) else {
+            throw DecodingError.invalidRange
+        }
+        
+        address = try container.decodeIfPresent(String.self, forKey: .address)
+    }
    //
 }
 
 let jsonStr = """
 {
 "name" : "John",
-"age" : 30,
+"age" : 20,
 "address" : "Seoul"
 }
 """

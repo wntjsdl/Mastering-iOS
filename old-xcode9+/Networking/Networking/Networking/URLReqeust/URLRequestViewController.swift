@@ -30,7 +30,21 @@ class URLRequestViewController: UIViewController {
       imageView.image = nil
       
       // Code Input Point #1
-      
+    guard let url = URL(string: picUrlStr) else {
+        fatalError()
+    }
+    
+    let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        if let error = error {
+            print(error)
+        } else if let data = data {
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+        }
+    }
+    task.resume()
       // Code Input Point #1
    }
 }
