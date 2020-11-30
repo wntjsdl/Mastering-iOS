@@ -32,7 +32,8 @@ class PostReqeustViewController: UIViewController {
    
    @IBOutlet weak var leftField: UITextField!
    @IBOutlet weak var rightField: UITextField!
-   
+    @IBOutlet weak var operatorField: UITextField!
+    
    func encodedData() -> Data? {
       guard let leftStr = leftField.text, let a = Int(leftStr) else {
          showErrorAlert(with: "Please input only the number.")
@@ -43,8 +44,13 @@ class PostReqeustViewController: UIViewController {
          showErrorAlert(with: "Please input only the number.")
          return nil
       }
+    
+    guard let opStr = operatorField.text else {
+        showErrorAlert(with: "Please input only the operator.")
+        return nil
+    }
       
-      let data = PostData(a: a, b: b, op: "+")
+      let data = PostData(a: a, b: b, op: opStr)
       
       let encoder = JSONEncoder()
       return try? encoder.encode(data)
@@ -56,7 +62,36 @@ class PostReqeustViewController: UIViewController {
       }
       
       // Code Input Point #1
-      
+      var request = URLRequest(url: url)
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpMethod = "POST"
+    request.httpBody = encodedData()
+    
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            self.showErrorAlert(with: error.localizedDescription)
+            print(error)
+            return
+        }
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            self.showErrorAlert(with: "Invalid Response")
+            return
+        }
+        
+        guard (200...299).contains(httpResponse.statusCode) else {
+            self.showErrorAlert(with: "\(httpResponse.statusCode)")
+            return
+        }
+        
+        guard let data = data, let str = String(data: data, encoding: .utf8) else {
+            fatalError("Invalid Data")
+        }
+        
+        self.showInfoAlert(with: str)
+    }
+    
+    task.resume()
       // Code Input Point #1
    }
 }

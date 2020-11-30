@@ -26,31 +26,44 @@ class SessionConfigurationViewController: UIViewController {
    
    @IBAction func useSharedConfiguration(_ sender: Any) {
       // Code Input Point #1
-      
+    sendReqeust(using: URLSession.shared)
       // Code Input Point #1
    }
    
    @IBAction func useDefaultConfiguration(_ sender: Any) {
       // Code Input Point #2
-      
+    let configuration = URLSessionConfiguration.default
+    let session = URLSession(configuration: configuration)
+    sendReqeust(using: session)
       // Code Input Point #2
    }
    
    @IBAction func useEphemeralConfiguration(_ sender: Any) {
       // Code Input Point #3
-      
+    let configuration = URLSessionConfiguration.ephemeral
+    let session = URLSession(configuration: configuration)
+    sendReqeust(using: session)
       // Code Input Point #3
    }
    
    @IBAction func useBackgroundConfiguration(_ sender: Any) {
       // Code Input Point #4
-      
+    let configuration = URLSessionConfiguration.background(withIdentifier: "DownTask")
+    let session = URLSession(configuration: configuration)
+    sendReqeust(using: session)
       // Code Input Point #4
    }
    
    @IBAction func useCustomConfiguration(_ sender: Any) {
       // Code Input Point #5
-      
+    let configuration = URLSessionConfiguration.default
+    
+    configuration.timeoutIntervalForRequest = 30
+    configuration.httpAdditionalHeaders = ["ZUMO-API-VERSION": "2.0.0"]
+    configuration.networkServiceType = .responsiveData
+    
+    let session = URLSession(configuration: configuration)
+    sendReqeust(using: session)
       // Code Input Point #5
    }
    
