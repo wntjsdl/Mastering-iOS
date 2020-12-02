@@ -29,4 +29,4 @@ let smallFileUrlStr = "https://dl.dropboxusercontent.com/s/el5ocubjy1p3zn3/intro
 let picUrlStr = "https://dl.dropboxusercontent.com/s/424g5yjs3zagx8z/pic.jpg?dl=0"
 
 // Please enter the dropbox access token here.
-let dropBoxAccessToken = "sl.Amj8o8tsEhGHIaYxtZRKfDIYsWt9__1R2mXpmiJmmSABQjDSrHeQeBUaAseTJP555ks4iIYC5zk35NS_VRLyVV7Hu1UuvymrPLKYz7-yHm4pszhpqJgVxKvZyM8vadkoJvs2iyU"
+let dropBoxAccessToken = "sl.Amk0Mig9WBcT_hfJSWa1dvGV68tfiSKkuALikedaSRdM4RfDJzQhRhk5U3mWvMGnc-YgYUZmsIuzh9wJol0mNwIr0ucwNBEqKbHoyJRtmUufdihwA9W4m-07Y2R26BCajahCMp4g8J8"

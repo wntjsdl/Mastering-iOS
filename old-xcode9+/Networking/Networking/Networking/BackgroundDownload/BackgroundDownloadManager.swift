@@ -55,7 +55,8 @@ extension BackgroundDownloadManager: URLSessionDownloadDelegate {
       print(totalBytesWritten, totalBytesExpectedToWrite)
       
       // Code Input Point #3
-      
+    let userInfo = [BackgroundDownloadManager.totalBytesWrittenKey: totalBytesWritten, BackgroundDownloadManager.totalBytesExpectedToWriteKey: totalBytesExpectedToWrite]
+    NotificationCenter.default.post(name: BackgroundDownloadManager.didWriteDataNotification, object: nil, userInfo: userInfo)
       // Code Input Point #3
    }
    
@@ -79,7 +80,13 @@ extension BackgroundDownloadManager: URLSessionDownloadDelegate {
    }
    
    // Code Input Point #2
-   
+    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+        NSLog(">> %@ %@", self, #function)
+        
+        DispatchQueue.main.async {
+            self.completionHandler?()
+        }
+    }
    // Code Input Point #2
 }
 

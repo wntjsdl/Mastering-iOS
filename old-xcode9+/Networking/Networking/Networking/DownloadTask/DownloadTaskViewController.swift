@@ -44,6 +44,13 @@ class DownloadTaskViewController: UIViewController {
    }
    
    // Code Input Point #1
+    var task: URLSessionDownloadTask?
+    
+    lazy var session: URLSession = { [weak self] in
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.main)
+        return session
+    }()
    
    // Code Input Point #1
    
@@ -64,30 +71,38 @@ class DownloadTaskViewController: UIViewController {
       downloadProgressView.progress = 0.0
       
       // Code Input Point #2
-      
+    task = session.downloadTask(with: url)
+    task?.resume()
       // Code Input Point #2
    }
    
    @IBAction func stopDownload(_ sender: Any) {
       // Code Input Point #4
-      
+    task?.cancel()
       // Code Input Point #4
    }
    
    
    // Code Input Point #5
-   
+    var resumeData: Data?
    // Code Input Point #5
    
    @IBAction func pauseDownload(_ sender: Any) {
       // Code Input Point #6
-      
+    task?.cancel(byProducingResumeData: { (data) in
+        self.resumeData = data
+    })
       // Code Input Point #6
    }
    
    @IBAction func resumeDownload(_ sender: Any) {
       // Code Input Point #7
-      
+    guard let data = resumeData else {
+        return
+    }
+    
+    task = session.downloadTask(withResumeData: data)
+    task?.resume()
       // Code Input Point #7
    }
    
@@ -107,11 +122,41 @@ class DownloadTaskViewController: UIViewController {
       super.viewWillDisappear(animated)
       
       // Code Input Point #8
-      
+    session.invalidateAndCancel()
       // Code Input Point #8
    }
 }
 
 // Code Input Point #3
-
+extension DownloadTaskViewController: URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let current = formatter.string(fromByteCount: totalBytesWritten)
+        let total = formatter.string(fromByteCount: totalBytesExpectedToWrite)
+        sizeLabel.text = "\(current)/\(total)"
+        downloadProgressView.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        print(#function)
+        print(error ?? "Done")
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print(#function)
+        
+        guard (try? location.checkResourceIsReachable()) ?? false else {
+            return
+        }
+        
+        do {
+            _ = try FileManager.default.replaceItemAt(targetUrl, withItemAt: location)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
+        print("resume", fileOffset, expectedTotalBytes)
+    }
+}
 // Code Input Point #3

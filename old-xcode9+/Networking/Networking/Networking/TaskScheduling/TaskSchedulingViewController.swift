@@ -37,7 +37,7 @@ class TaskSchedulingViewController: UIViewController {
       let config = URLSessionConfiguration.background(withIdentifier: "SampleSession")
       
       // Code Input Point #2
-      
+    config.isDiscretionary = true
       // Code Input Point #2
       
       let session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.main)
@@ -52,7 +52,11 @@ class TaskSchedulingViewController: UIViewController {
       task = session.downloadTask(with: url)
       
       // Code Input Point #1
-      
+    task?.earliestBeginDate = Date(timeIntervalSinceNow: 5)
+    task?.countOfBytesClientExpectsToSend = 80
+    task?.countOfBytesClientExpectsToReceive = 1024 * 1024 * 40
+    
+    sizeLabel.text = "Delayed..."
       // Code Input Point #1
       
       task?.resume()
@@ -68,7 +72,12 @@ class TaskSchedulingViewController: UIViewController {
 
 extension TaskSchedulingViewController: URLSessionDownloadDelegate {
    // Code Input Point #3
-   
+    func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
+        DispatchQueue.main.async {
+            self.sizeLabel.text = "Go!"
+        }
+        completionHandler(.continueLoading, nil)
+    }
    // Code Input Point #3
    
    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {

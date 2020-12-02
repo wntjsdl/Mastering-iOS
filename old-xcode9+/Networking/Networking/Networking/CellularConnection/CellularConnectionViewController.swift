@@ -33,7 +33,7 @@ class CellularConnectionViewController: UIViewController {
       config.requestCachePolicy = .reloadIgnoringLocalCacheData
       
       // Code Input Point #5
-      
+    config.allowsCellularAccess = false
       // Code Input Point #5
       
       let session = URLSession(configuration: config)
@@ -50,7 +50,7 @@ class CellularConnectionViewController: UIViewController {
       var request = URLRequest(url: url)
       
       // Code Input Point #1
-      
+    request.allowsCellularAccess = cellularSwitch.isOn
       // Code Input Point #1
       
       startTask(using: request)
@@ -62,7 +62,15 @@ class CellularConnectionViewController: UIViewController {
          
          // Code Input Point #2
          // -1009, NSURLErrorNotConnectedToInternet
-         
+        if let error = error {
+            let networkError = error as NSError
+            if networkError.code == NSURLErrorNotConnectedToInternet {
+                if !request.allowsCellularAccess {
+                    self.showCellularAlert()
+                }
+            }
+            return
+        }
          // Code Input Point #2
          
          if let data = data {
@@ -86,13 +94,15 @@ class CellularConnectionViewController: UIViewController {
       var request = URLRequest(url: url)
       
       // Code Input Point #3
-      
+    request.allowsCellularAccess = true
+    startTask(using: request)
       // Code Input Point #3
    }
    
    func allowsCellularAccess() {
       // Code Input Point #4
-      
+    cellularSwitch.setOn(true, animated: true)
+    startOneTimeTask()
       // Code Input Point #4
    }
 }

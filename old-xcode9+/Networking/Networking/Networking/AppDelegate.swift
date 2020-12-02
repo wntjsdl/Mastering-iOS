@@ -31,5 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return true
    }
 
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        NSLog(">> %@ %@", self, #function)
+        
+        _ = BackgroundDownloadManager.shared.session
+        BackgroundDownloadManager.shared.completionHandler = completionHandler
+    }
 }
 

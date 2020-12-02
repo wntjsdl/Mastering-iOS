@@ -36,7 +36,10 @@ class AdaptableConnectivityViewController: UIViewController {
       let config = URLSessionConfiguration.default
       
       // Code Input Point #1
-      
+    config.waitsForConnectivity = true
+    
+//    config.timeoutIntervalForRequest = 5
+    config.timeoutIntervalForResource = 5
       // Code Input Point #1
       
       let session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.main)
@@ -64,7 +67,10 @@ class AdaptableConnectivityViewController: UIViewController {
 
 extension AdaptableConnectivityViewController: URLSessionDownloadDelegate {
    // Code Input Point #2
-   
+    func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
+        print(#function)
+        sizeLabel.text = "Waiting..."
+    }
    // Code Input Point #2
    
    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {

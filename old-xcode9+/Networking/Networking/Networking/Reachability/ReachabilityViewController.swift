@@ -75,26 +75,54 @@ class ReachabilityViewController: UIViewController {
    }
    
    // Code Input Point #1
-   
+    var reachability: Reachability?
    // Code Input Point #1
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
       // Code Input Point #2
-      
+      reachability = Reachability()
+    reachability?.whenReachable = { reachability in
+        self.updateUI(from: reachability)
+        self.resumeDownloadIfNeeded()
+    }
+    reachability?.whenUnreachable = { reachability in
+        self.updateUI(from: reachability)
+    }
+    
+    do {
+        try reachability?.startNotifier()
+    } catch {
+        print(error)
+    }
       // Code Input Point #2
    }
    
    func updateUI(from reachability: Reachability) {
       // Code Input Point #3
-      
+    switch reachability.connection {
+    case .wifi:
+        wifiImageView.image = wifiOnImage
+        cellularImageView.image = cellularOffImage
+    case .cellular:
+        wifiImageView.image = wifiOffImage
+        cellularImageView.image = cellularOnImage
+    default:
+        wifiImageView.image = wifiOffImage
+        cellularImageView.image = cellularOffImage
+    }
       // Code Input Point #3
    }
    
    func resumeDownloadIfNeeded() {
       // Code Input Point #6
-      
+    guard reachability?.connection != .some(.none) else { return }
+    
+    if let resumeData = try? Data(contentsOf: resumeDataUrl) {
+        let newDownloadTask = session.downloadTask(withResumeData: resumeData)
+        newDownloadTask.resume()
+    }
       // Code Input Point #6
    }
    
@@ -106,7 +134,8 @@ class ReachabilityViewController: UIViewController {
    
    deinit {
       // Code Input Point #4
-
+    reachability?.stopNotifier()
+    reachability = nil
       // Code Input Point #4
    }
 }
@@ -126,7 +155,24 @@ extension ReachabilityViewController: URLSessionDownloadDelegate {
       
       // Code Input Point #5
       // -1005, NSURLErrorNetworkConnectionLost
-      
+    if downloadError.code == NSURLErrorNetworkConnectionLost {
+        switch reachability?.connection {
+        case .some(.wifi), .some(.cellular):
+            if let resumeData = downloadError.userInfo[NSURLSessionDownloadTaskResumeData] as? Data {
+                let newDownloadTask = session.downloadTask(withResumeData: resumeData)
+                newDownloadTask.resume()
+            }
+        default:
+            if let resumeData = downloadError.userInfo[NSURLSessionDownloadTaskResumeData] as? Data {
+                do {
+                    try resumeData.write(to: resumeDataUrl)
+                    print("Resume Data Saved")
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
       // Code Input Point #5
    }
    
@@ -145,7 +191,10 @@ extension ReachabilityViewController: URLSessionDownloadDelegate {
          _ = try FileManager.default.replaceItemAt(targetUrl, withItemAt: location)
          
          // Code Input Point #7
-         
+        if FileManager.default.fileExists(atPath: resumeDataUrl.path) {
+            try FileManager.default.removeItem(at: resumeDataUrl)
+            print("Resume Data Deleted")
+        }
          // Code Input Point #7
       } catch {
          fatalError(error.localizedDescription)

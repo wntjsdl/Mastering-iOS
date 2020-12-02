@@ -42,25 +42,27 @@ class BackgroundDownloadViewController: UIViewController {
    var token: NSObjectProtocol?
    
    var targetUrl: URL {
-      guard let targetUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("backgroundFile.mp4") else {
-         fatalError("Invalid File URL")
-      }
-
-      return targetUrl
+//      guard let targetUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("backgroundFile.mp4") else {
+//         fatalError("Invalid File URL")
+//      }
+//
+//      return targetUrl
+    return BackgroundDownloadManager.shared.targetUrl
    }
    
    var task: URLSessionDownloadTask?
    
-   lazy var session: URLSession = { [weak self] in
-      // Code Input Point #1
-
-      let config = URLSessionConfiguration.default
-      
-      // Code Input Point #1
-
-      let session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.main)
-      return session
-   }()
+//   lazy var session: URLSession = { [weak self] in
+//      // Code Input Point #1
+//
+//      let config = URLSessionConfiguration.background(withIdentifier: "SampleSession")
+//
+//      // Code Input Point #1
+//
+//      let session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.main)
+//      return session
+//   }()
+    let session = BackgroundDownloadManager.shared.session
    
    
    @IBAction func startDownload(_ sender: Any) {
@@ -94,7 +96,13 @@ class BackgroundDownloadViewController: UIViewController {
       updateRecentDownload()
       
       // Code Input Point #4
-      
+    token = NotificationCenter.default.addObserver(forName: BackgroundDownloadManager.didWriteDataNotification, object: nil, queue: OperationQueue.main, using: { (noti) in
+        guard let userInfo = noti.userInfo else { return }
+        guard let downloadedSize = userInfo[BackgroundDownloadManager.totalBytesWrittenKey] as? Int64 else { return }
+        guard let totalSize = userInfo[BackgroundDownloadManager.totalBytesExpectedToWriteKey] as? Int64 else { return }
+        
+        self.sizeLabel.text = "\(self.sizeFormatter.string(fromByteCount: downloadedSize))/\(self.sizeFormatter.string(fromByteCount: totalSize))"
+    })
       // Code Input Point #4
    }
    
@@ -110,28 +118,28 @@ class BackgroundDownloadViewController: UIViewController {
 }
 
 
-extension BackgroundDownloadViewController: URLSessionDownloadDelegate {
-   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-      sizeLabel.text = "\(sizeFormatter.string(fromByteCount: totalBytesWritten))/\(sizeFormatter.string(fromByteCount: totalBytesExpectedToWrite))"
-   }
-
-   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-      NSLog(">> %@ %@", self, #function)
-      print(error ?? "Done")
-   }
-
-   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-      NSLog(">> %@ %@", self, #function)
-
-      do {
-         _ = try FileManager.default.replaceItemAt(targetUrl, withItemAt: location)
-      } catch {
-         print(error)
-         fatalError(error.localizedDescription)
-      }
-      updateRecentDownload()
-   }
-}
+//extension BackgroundDownloadViewController: URLSessionDownloadDelegate {
+//   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+//      sizeLabel.text = "\(sizeFormatter.string(fromByteCount: totalBytesWritten))/\(sizeFormatter.string(fromByteCount: totalBytesExpectedToWrite))"
+//   }
+//
+//   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+//      NSLog(">> %@ %@", self, #function)
+//      print(error ?? "Done")
+//   }
+//
+//   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+//      NSLog(">> %@ %@", self, #function)
+//
+//      do {
+//         _ = try FileManager.default.replaceItemAt(targetUrl, withItemAt: location)
+//      } catch {
+//         print(error)
+//         fatalError(error.localizedDescription)
+//      }
+//      updateRecentDownload()
+//   }
+//}
 
 
 extension BackgroundDownloadViewController {
